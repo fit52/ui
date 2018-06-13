@@ -9,12 +9,12 @@ class App extends Component {
 
   componentDidMount() {
     this.callApi()
-      .then(res => this.setState({ response: res.express }))
+      .then(res => this.setState({ response: res.posts.length }))
       .catch(err => console.log(err));
   }
 
   callApi = async () => {
-    const response = await fetch('/api/hello');
+    const response = await fetch('/api/site/posts');
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
     return body;
@@ -27,7 +27,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <header className="App-header">
-            <h1 className="App-title">Welcome to React</h1>
+            <h1 className="App-title">Hursley Fit52</h1>
             <h1>{response}</h1>
           </header>
           <div>

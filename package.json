@@ -4,11 +4,13 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "wpcom": "^5.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

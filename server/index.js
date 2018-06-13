@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
 
+const site = require('./site');
+
 const port = process.env.PORT || 3001;
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
-});
+app.use('/api/site', site);
 
 if (process.env.NODE_ENV !== 'dev') {
   console.log('Serving the static files via express');
