@@ -1,25 +1,33 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-color: #284B63;
+  height: 120px;
   padding: 20px;
-  color: white;
 }
 
 .App-title {
+  max-width: 900px;
+  margin: 0 auto;
   font-size: 1.5em;
+  color: white;
 }
 
 .App-intro {
   font-size: large;
+}
+
+.App-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  background-color: white;
+  padding: 2rem;
+}
+
+.App-post img {
+  width: 100%;
 }
 
 @keyframes App-logo-spin {

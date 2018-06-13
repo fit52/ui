@@ -4,12 +4,12 @@ import './App.css';
 
 class App extends Component {
   state = {
-    response: ''
+    posts: []
   };
 
   componentDidMount() {
     this.callApi()
-      .then(res => this.setState({ response: res.posts.length }))
+      .then(res => this.setState({ posts: res.posts }))
       .catch(err => console.log(err));
   }
 
@@ -21,19 +21,25 @@ class App extends Component {
   };
 
   render() {
-    const { response } = this.state;
+    const { posts } = this.state;
 
     return (
       <Router>
         <div className="App">
           <header className="App-header">
             <h1 className="App-title">Hursley Fit52</h1>
-            <h1>{response}</h1>
           </header>
-          <div>
+          <section className="App-content">
             <Route exact path="/" component={() => <h1>HOME</h1>} />
             <Route exact path="/hello" component={() => <h1>HELLO</h1>} />
-          </div>
+
+            { posts.map(post => (
+              <div key={post.ID} className="App-post">
+                <h3>{post.title}</h3>
+                <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
+              </div>
+            ))}
+          </section>
         </div>
       </Router>
     );
