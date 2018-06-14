@@ -6,6 +6,19 @@
   background-color: #284B63;
   height: 120px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.App-links {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.App-links a {
+  color: white;
+  margin-right: 1rem;
 }
 
 .App-title {
