@@ -7,11 +7,18 @@ const blog = wpcom.site( 'hursleyfit52.wordpress.com' );
 
 router.use(bodyParser.json());
 
-router.get('/posts', (req, res) => {
-  blog.postsList({number: 8})
-    .then(list => { 
-      res.json(list)
-    });
+router.get('/posts', async (req, res) => {
+  const data = await blog.postsList({number: 10})
+  return res.json(data.posts.map(post => ({
+    id: post.ID,
+    author: {
+      firstName: post.author.first_name,
+      lastName: post.author.last_name,
+      url: post.author.avatar_URL
+    },
+    content: post.content,
+    title: post.title,
+  })));
 });
 
 module.exports = router;
