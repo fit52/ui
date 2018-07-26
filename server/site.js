@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const wpcom = require('wpcom')(/*auth token*/);
 
 const router = express.Router();
-const blog = wpcom.site( 'hursleyfit52.wordpress.com' );
+const blog = wpcom.site('hursleyfit52.wordpress.com');
 
 router.use(bodyParser.json());
 
