@@ -13,12 +13,10 @@ class App extends Component {
             <h1 className="App-title">Hursley Fit52</h1>
             <p className="App-links">
               <Link to="/">Home</Link>
-              <Link to="/login">Login</Link>
             </p>
           </header>
           <section className="App-content">
             <Route exact path="/" component={Home} />
-            <Route exact path="/hello" component={() => <h1>HELLO</h1>} />
           </section>
         </div>
       </Router>
