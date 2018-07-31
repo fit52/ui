@@ -1,27 +1,29 @@
 import React from 'react';
 
-import { getPosts } from '../services/api';
+import api from '../services/api';
 
 export default class Home extends React.Component {
   state = {
-    posts: []
+    posts: [],
+    loading: true,
   };
 
   componentDidMount() {
-    getPosts()
-      .then(posts => this.setState({ posts }))
+    api.getPosts()
+      .then(posts => this.setState({ posts, loading: false }))
       .catch(err => console.err(err));
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts, loading } = this.state;
 
     return (
       <div>
-        { posts.map(post => (
+        {loading && 'loading...'}
+        {posts.map(post => (
           <div key={post.id} className="App-post">
             <h3>{post.title}</h3>
-            <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
+            <p dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>
         ))}
       </div>
