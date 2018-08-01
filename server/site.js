@@ -31,15 +31,15 @@ router.get('/posts', async (req, res) => {
 });
 
 router.get('/page/:id', async (req, res) => {
-  const data = await blog.post({ slug: req.params.id }).get();
-
-  if (!data) {
-    return res.status(404).send();
+  try {
+    const data = await blog.post({ slug: req.params.id }).get();
+    const { title, content, date } = data;
+    return res.json({ title, content, date });
+  } catch (e) {
+    return res.status(404).json({
+      message: 'Page not found',
+    });
   }
-
-  const { title, content, date } = data;
-
-  return res.json({ title, content, date });
 });
 
 module.exports = router;

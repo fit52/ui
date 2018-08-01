@@ -6,20 +6,22 @@ export default class Home extends React.Component {
   state = {
     posts: [],
     loading: true,
+    error: null,
   };
 
   componentDidMount() {
     api.getPosts()
       .then(posts => this.setState({ posts, loading: false }))
-      .catch(err => console.err(err));
+      .catch(() => this.setState({ error: 'There was an error loading posts', loading: false }));
   }
 
   render() {
-    const { posts, loading } = this.state;
+    const { posts, loading, error } = this.state;
 
     return (
       <div>
         {loading && 'loading...'}
+        {error}
         {posts.map(post => (
           <div key={post.id} className="App-post">
             <h3>{post.title}</h3>
