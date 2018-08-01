@@ -24,7 +24,8 @@
     "lint": "eslint src/**/*.js server/**/*.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "yarn lint",
+    "test:js": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "server": "node server/index.js",
     "dev": "concurrently --kill-others-on-fail \"NODE_ENV=dev yarn server\" \"yarn start\""
