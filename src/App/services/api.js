@@ -5,6 +5,12 @@ const getPosts = async () => {
   return body;
 };
 
+const getPage = async (pageTitle) => {
+  const response = await fetch(`/api/site/page/${pageTitle}`);
+  return response.json();
+};
+
 export default {
   getPosts,
+  getPage,
 };

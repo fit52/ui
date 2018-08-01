@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 
 import Home from './App/components/Home';
+import Page from './App/components/Page';
 
 const App = () => (
   <Router>
@@ -15,6 +16,7 @@ const App = () => (
       </header>
       <section className="App-content">
         <Route exact path="/" component={Home} />
+        <Route exact path="/page/:pageTitle" component={Page} />
       </section>
     </div>
   </Router>
