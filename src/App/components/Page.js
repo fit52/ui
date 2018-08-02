@@ -6,28 +6,27 @@ import api from '../services/api';
 export default class Page extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   state = {
     page: null,
     loading: true,
-    error: null,
   };
 
   componentDidMount() {
-    const { location } = this.props;
+    const { location, history } = this.props;
     api.getPage(location.pathname.substr('/page/'.length))
       .then(page => this.setState({ page, loading: false }))
-      .catch(() => this.setState({ error: '404 page not found', loading: false }));
+      .catch(() => history.replace('/404'));
   }
 
   render() {
-    const { page, loading, error } = this.state;
+    const { page, loading } = this.state;
 
     return (
       <div>
         {loading && 'loading...'}
-        {error}
         {page && (
           <div className="App-post">
             <h3>{page.title}</h3>

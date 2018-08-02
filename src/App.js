@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import './App.css';
 
 import Home from './App/components/Home';
@@ -16,8 +16,16 @@ const App = () => (
         </p>
       </header>
       <section className="App-content">
-        <Route exact path="/" component={Home} />
-        <Route exact path="/page/:pageTitle" component={Page} />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/page/:pageTitle" component={Page} />
+          <Route exact>
+            <React.Fragment>
+              <h1>Page not found</h1>
+              <p><Link to="/">Return Home</Link></p>
+            </React.Fragment>
+          </Route>
+        </Switch>
       </section>
     </div>
   </Router>
