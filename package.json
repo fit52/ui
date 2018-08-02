@@ -21,6 +21,8 @@
     "wpcom": "^5.4.1"
   },
   "scripts": {
+    "precommit": "yarn lint",
+    "prepush": "yarn lint",
     "lint": "eslint src/**/*.js server/**/*.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -28,6 +30,12 @@
     "eject": "react-scripts eject",
     "server": "node server/index.js",
     "dev": "concurrently --kill-others-on-fail \"NODE_ENV=dev yarn server\" \"yarn start\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn lint"
+    }
   },
   "browserslist": [
     "> 1%",
@@ -44,6 +52,7 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
+    "husky": "^0.14.3",
     "prop-types": "^15.6.2"
   },
   "eslintConfig": {
