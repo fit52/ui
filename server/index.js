@@ -13,8 +13,9 @@ app.use('/api/site', require('./site'));
 const port = process.env.PORT || 3001;
 
 if (process.env.NODE_ENV !== 'dev') {
-  console.log('Serving the static files via express');
-  app.get('*', express.static(path.join(__dirname, 'build')));
+  const buildPath = path.join(__dirname, '../build');
+  console.log(`Serving the static files via express on ${buildPath}`);
+  app.use(express.static(buildPath));
 }
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

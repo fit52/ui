@@ -1,0 +1,5 @@
+applications:
+- name: fit52
+  memory: 128M
+  disk_quota: 128M
+  command: npm start
