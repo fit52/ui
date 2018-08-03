@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Spinner from './Spinner';
 import api from '../services/api';
 
 export default class Home extends React.Component {
@@ -20,7 +20,7 @@ export default class Home extends React.Component {
 
     return (
       <div>
-        {loading && 'loading...'}
+        <Spinner loading={loading} />
         {error}
         {posts.map(post => (
           <div key={post.id} className="App-post">

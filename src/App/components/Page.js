@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Spinner from './Spinner';
 
 import api from '../services/api';
 
@@ -26,7 +27,7 @@ export default class Page extends React.Component {
 
     return (
       <div>
-        {loading && 'loading...'}
+        <Spinner loading={loading} />
         {page && (
           <div className="App-post">
             <h3>{page.title}</h3>
