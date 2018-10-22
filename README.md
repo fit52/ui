@@ -4,4 +4,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Development
 
+Set up the local config to point to the cloudant database. Copy `config/default.json` to `config/local.json` and enter the correct connection details. Without this, the app won't run
+
 run `yarn install` then `yarn dev` to run the UI and Back-end concurrently
+
+# Pushing to production
+
+For now, only Andrew should do this.
+
+`yarn build` will compile the React code to the `/dist` directory.
+
+`yarn start` will start the server connect to the database, and will serve files in the `dist` directory.
+
+Log into Bluemix via the cli, and push the app. The manifest file will do the rest.

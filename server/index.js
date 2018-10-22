@@ -9,6 +9,7 @@ require('dotenv').config();
 app.use(cors());
 
 app.use('/api/site', require('./site'));
+app.use('/api/run', require('./runapi'));
 
 const port = process.env.PORT || 3001;
 
