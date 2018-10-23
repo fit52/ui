@@ -6,14 +6,15 @@ const config = require('config');
 const router = express.Router();
 router.use(bodyParser.json());
 
+let db;
+
 const cloudant = Cloudant({
   url: config.get('database.url'),
   plugins: 'promises',
 }, () => {
   console.log('connected to database');
+  db = cloudant.db.use('fit52results');
 });
-
-const db = cloudant.db.use('fit52results');
 
 router.get('/global', async (req, res) => {
   try {
