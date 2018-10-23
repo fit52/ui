@@ -8,6 +8,7 @@ cache:
 script:
   - yarn build
   - yarn lint
+  - yarn inject
 deploy:
   on:
     branch: master
