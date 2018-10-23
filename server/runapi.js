@@ -22,10 +22,10 @@ router.get('/global', async (req, res) => {
 });
 
 router.get('/events', async (req, res) => {
-  const { length } = req.query;
+  const { limit } = req.query;
   const { rows } = await db.list();
   const events = [];
-  const maxEvents = parseInt(length, 10);
+  const maxEvents = parseInt(limit, 10);
 
 
   for (const row of rows) {
