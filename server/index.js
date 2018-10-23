@@ -13,7 +13,7 @@ app.use('/api/run', require('./runapi'));
 
 const port = process.env.PORT || 3001;
 
-if (process.env.NODE_ENV !== 'dev') {
+if (process.env.NODE_ENV !== 'development') {
   const buildPath = path.join(__dirname, '../build');
   console.log(`Serving the static files via express on ${buildPath}`);
   app.use(express.static(buildPath));
