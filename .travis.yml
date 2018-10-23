@@ -9,6 +9,8 @@ script:
   - yarn build
   - yarn lint
 deploy:
+  on:
+    branch: master
   edge: true
   provider: bluemixcloudfoundry
   username: $BX_USER
