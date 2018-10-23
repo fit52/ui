@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
 const path = require('path');
@@ -7,6 +8,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 app.use(cors());
+app.use(morgan('dev'));
 
 app.use('/api/site', require('./site'));
 app.use('/api/run', require('./runapi'));
