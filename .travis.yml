@@ -8,3 +8,11 @@ cache:
 script:
   - yarn build
   - yarn lint
+deploy:
+  edge: true
+  provider: bluemixcloudfoundry
+  username: $BX_USER
+  password: $BX_PASS
+  organization: ajdaniel
+  space: prod
+  region: eu-gb
