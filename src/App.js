@@ -6,6 +6,7 @@ import './App.css';
 
 import Home from './App/components/Home';
 import Page from './App/components/Page';
+import Events from './App/components/Events';
 
 const App = () => (
   <Router>
@@ -15,12 +16,14 @@ const App = () => (
         <p className="App-links">
           <Link to="/">Home</Link>
           <Link to="/page/about">About</Link>
+          <Link to="/events">Events</Link>
         </p>
       </header>
       <section className="App-content">
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/page/:pageTitle" component={Page} />
+          <Route exact path="/events" component={Events} />
           <Route exact>
             <React.Fragment>
               <h1>Page not found</h1>

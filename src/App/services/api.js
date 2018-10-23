@@ -16,7 +16,17 @@ const getPage = async (pageTitle) => {
   return body;
 };
 
+const getEvents = async (limit = 10) => {
+  const response = await fetch(`/api/run/events?limit=${limit}`);
+  const body = response.json();
+  if (response.status !== 200) {
+    throw Error(body.message);
+  }
+  return body;
+};
+
 export default {
   getPosts,
   getPage,
+  getEvents,
 };
