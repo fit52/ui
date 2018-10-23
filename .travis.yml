@@ -17,5 +17,5 @@ deploy:
   password: $BX_PASS
   organization: ajdaniel
   space: prod
-  manifest: manifest.yml
+  manifest: Manifest.yml
   region: eu-gb
