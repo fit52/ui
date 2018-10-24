@@ -2,7 +2,7 @@ const {
   DB_URL,
 } = process.env;
 
-return {
+module.exports = {
   database: {
     url: DB_URL,
   },

@@ -35,20 +35,23 @@ router.get('/events', async (req, res) => {
   } catch (e) {
     return res.status(404).send();
   }
-  const events = [];
   const maxEvents = parseInt(limit, 10);
 
-
+  const promises = [];
   for (const row of data.rows) {
     if (row.id.startsWith('event/')) {
-      const { _id, _rev, ...event } = await db.get(row.id);
-      events.push(event);
-
-      if (events.length >= maxEvents) {
+      promises.push(db.get(row.id));
+      if (promises.length >= maxEvents) {
         break;
       }
     }
   }
+
+  const allEvents = await Promise.all(promises);
+  const events = allEvents
+    .map(({ _id, _rev, ...event }) => event)
+    .sort((a, b) => a.number - b.number);
+
   return res.json(events);
 });
 
