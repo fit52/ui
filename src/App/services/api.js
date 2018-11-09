@@ -25,8 +25,21 @@ const getEvents = async (limit = 10) => {
   return body;
 };
 
+const getEvent = async (id) => {
+  if (!id) {
+    throw Error('Please provide an ID');
+  }
+  const response = await fetch(`/api/run/events/${id}`);
+  const body = response.json();
+  if (response.status !== 200) {
+    throw Error(body.message);
+  }
+  return body;
+};
+
 export default {
   getPosts,
   getPage,
   getEvents,
+  getEvent,
 };

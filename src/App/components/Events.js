@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Spinner from './Spinner';
 
@@ -26,7 +27,11 @@ export default class Events extends React.Component {
             <h3>Recent events</h3>
             <ul>
               {events.map(event => (
-                <li key={event.id}>{moment(event.date).format('MMMM Do YYYY')}</li>
+                <li key={event.id}>
+                  <Link to={`/events/${event.number}`}>
+                    {moment(event.date).format('MMMM Do YYYY')}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
