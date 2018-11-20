@@ -93,9 +93,10 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
-"@cloudant/cloudant@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@cloudant/cloudant/-/cloudant-2.4.0.tgz#9046854eee528efbfbd6e9b7c2a51a7b4d0cc3e1"
+"@cloudant/cloudant@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@cloudant/cloudant/-/cloudant-3.0.0.tgz#e80c1efe46b73052f6b0d0c9a8625df6944f1a30"
+  integrity sha512-1sTW9ezJKZ8uuk/7FC/Rt3q/JyleDxSHSBpq2lSdBvQCx3kqIm6U3GJE5EIznOhm0E0zrLLAejzMXTpkwYHSSw==
   dependencies:
     "@types/nano" "^6.4.5"
     "@types/request" "^2.47.0"
@@ -103,7 +104,7 @@
     concat-stream "^1.6.0"
     debug "^3.1.0"
     lockfile "1.0.3"
-    nano "^6.4.3"
+    nano "^7.1.1"
     request "^2.81.0"
     tmp "0.0.33"
 
@@ -182,6 +183,16 @@
 "@types/request@*", "@types/request@^2.47.0":
   version "2.47.1"
   resolved "https://registry.yarnpkg.com/@types/request/-/request-2.47.1.tgz#25410d3afbdac04c91a94ad9efc9824100735824"
+  dependencies:
+    "@types/caseless" "*"
+    "@types/form-data" "*"
+    "@types/node" "*"
+    "@types/tough-cookie" "*"
+
+"@types/request@^2.47.1":
+  version "2.48.1"
+  resolved "https://registry.yarnpkg.com/@types/request/-/request-2.48.1.tgz#e402d691aa6670fbbff1957b15f1270230ab42fa"
+  integrity sha512-ZgEZ1TiD+KGA9LiAAPPJL68Id2UWfeSO62ijSXZjFJArVV+2pKcsVHmrcu+1oiE3q6eDGiFiSolRc4JHoerBBg==
   dependencies:
     "@types/caseless" "*"
     "@types/form-data" "*"
@@ -1784,13 +1795,14 @@ clone@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
 
-cloudant-follow@~0.17.0:
-  version "0.17.0"
-  resolved "http://registry.npmjs.org/cloudant-follow/-/cloudant-follow-0.17.0.tgz#842513a74e72c440e61dc2b6fd96eedbd9cef38a"
+cloudant-follow@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/cloudant-follow/-/cloudant-follow-0.18.0.tgz#b90ac0ed5db9f5468319436a930751cdf3258c1b"
+  integrity sha512-jsplCsI0EpJvTrlgeuuYFrmrKGxm8TlSkyKzOLZa6fc6p+FNT8UDPAwYeh0yaT8IdI+sxT5DTdCD2G45HWpSaw==
   dependencies:
     browser-request "~0.3.0"
-    debug "^3.0.0"
-    request "^2.83.0"
+    debug "^4.0.1"
+    request "^2.88.0"
 
 co@^4.6.0:
   version "4.6.0"
@@ -2273,17 +2285,18 @@ debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.
   dependencies:
     ms "2.0.0"
 
-debug@^3.0.0:
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
-  dependencies:
-    ms "^2.1.1"
-
 debug@^3.0.1, debug@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
     ms "2.0.0"
+
+debug@^4.0.1:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.0.tgz#373687bffa678b38b1cd91f861b63850035ddc87"
+  integrity sha512-heNPJUJIqC+xB6ayLAMHaIrmN9HKa7aQO8MGqKpvCA+uJYVcvR6l5kgdrhRuwPFHU7P5/A1w0BjByPHwpfTDKg==
+  dependencies:
+    ms "^2.1.1"
 
 decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
@@ -5288,11 +5301,13 @@ nan@^2.9.2:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
-nano@^6.4.3:
-  version "6.4.4"
-  resolved "https://registry.yarnpkg.com/nano/-/nano-6.4.4.tgz#4902a095e5186cfb23612c78826ea755b76fadf0"
+nano@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/nano/-/nano-7.1.1.tgz#d574c5030c881a847c01f8bad545079480475911"
+  integrity sha512-c8Pr5/08XnTMt2Uii6Fcj4nKgwL/19Tgh+ZzwnEq73bVToo9WnhpMX2u4a70y1lVM8KFwaWYRy6EbjsdaQ0NCQ==
   dependencies:
-    cloudant-follow "~0.17.0"
+    "@types/request" "^2.47.1"
+    cloudant-follow "^0.18.0"
     debug "^2.2.0"
     errs "^0.3.2"
     lodash.isempty "^4.4.0"
@@ -6765,7 +6780,7 @@ request@^2.79.0:
     tunnel-agent "^0.6.0"
     uuid "^3.1.0"
 
-request@^2.81.0, request@^2.83.0, request@^2.85.0:
+request@^2.81.0, request@^2.85.0, request@^2.88.0:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   dependencies:

@@ -32,10 +32,10 @@ export default class Events extends React.Component {
             <h3>{moment(event.date).format('MMMM Do YYYY')}</h3>
 
             <h3>Stats</h3>
-            <p>Number of 2K runners: {event.stats.no2k}</p>
-            <p>Number of 5K runners: {event.stats.no5k}</p>
-            <p>Number of first time runners: {event.stats.noFirstTimes}</p>
-            <p>Number of volunteers: {event.stats.noVolunteers}</p>
+            <p>Number of 2K runners: {event.counts.twoK}</p>
+            <p>Number of 5K runners: {event.counts.fiveK}</p>
+            <p>Number of first time runners: {event.counts.firstTimers}</p>
+            <p>Number of volunteers: {event.counts.volunteers}</p>
 
           </div>
         )}
