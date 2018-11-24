@@ -26,33 +26,42 @@ router.get('/global', async (req, res) => {
   }
 });
 
+/*
+For this search string to work, make sure the database has this search index:
+
+{
+   "index": {
+      "fields": [
+         "number",
+         "_id"
+      ]
+   },
+   "name": "event-index",
+   "type": "json"
+}
+*/
+
 router.get('/events', async (req, res) => {
   const { limit } = req.query;
+  const maxEvents = parseInt(limit, 10);
   let data;
 
   try {
-    data = await db.list();
+    data = await db.find({
+      selector: {
+        _id: {
+          $regex: '^event/',
+        },
+      },
+      sort: [{ number: 'desc' }],
+      limit: maxEvents,
+    });
   } catch (e) {
+    console.error(e);
     return res.status(404).send();
   }
-  const maxEvents = parseInt(limit, 10);
 
-  const promises = [];
-  for (const row of data.rows) {
-    if (row.id.startsWith('event/')) {
-      promises.push(db.get(row.id));
-      if (promises.length >= maxEvents) {
-        break;
-      }
-    }
-  }
-
-  const allEvents = await Promise.all(promises);
-  const events = allEvents
-    .map(({ _id, _rev, ...event }) => event)
-    .sort((a, b) => a.number - b.number);
-
-  return res.json(events);
+  return res.json(data.docs);
 });
 
 router.get('/events/:id', async (req, res) => {
