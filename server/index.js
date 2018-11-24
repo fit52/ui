@@ -19,6 +19,9 @@ if (process.env.NODE_ENV !== 'development') {
   const buildPath = path.join(__dirname, '../build');
   console.log(`Serving the static files via express on ${buildPath}`);
   app.use(express.static(buildPath));
+  app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+  });
 }
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
