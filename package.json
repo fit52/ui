@@ -18,6 +18,7 @@
     "express": "^4.16.3",
     "moment": "^2.22.2",
     "morgan": "^1.9.1",
+    "node-cache": "^4.2.0",
     "replace-in-file": "^3.4.2",
     "wpcom": "^5.4.1"
   },

@@ -3,10 +3,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('config');
 
+const Cache = require('./utils/cache');
+
 const router = express.Router();
 router.use(bodyParser.json());
 
 let db;
+const cache = new Cache();
 
 const cloudant = Cloudant({
   url: config.get('database.url'),
@@ -47,7 +50,7 @@ router.get('/events', async (req, res) => {
   let data;
 
   try {
-    data = await db.find({
+    const findFunc = () => db.find({
       selector: {
         _id: {
           $regex: '^event/',
@@ -56,6 +59,8 @@ router.get('/events', async (req, res) => {
       sort: [{ number: 'desc' }],
       limit: maxEvents,
     });
+
+    data = await cache.get(`events${maxEvents}`, findFunc);
   } catch (e) {
     console.error(e);
     return res.status(404).send();
@@ -69,7 +74,10 @@ router.get('/events/:id', async (req, res) => {
   let data;
 
   try {
-    data = await db.get(`event/${id}`);
+    // data = await db.get(`event/${id}`);
+    const eventId = `event/${id}`;
+    const getEvent = () => db.get(eventId);
+    data = await cache.get(eventId, getEvent);
   } catch (e) {
     return res.status(404).send();
   }
