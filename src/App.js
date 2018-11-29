@@ -13,12 +13,15 @@ const App = () => (
   <Router>
     <div className="App">
       <header className="App-header">
-        <h1 className="App-title">Hursley Fit52</h1>
-        <p className="App-links">
-          <Link to="/">Home</Link>
-          <Link to="/page/about">About</Link>
-          <Link to="/events">Events</Link>
-        </p>
+        <div className="App-inner-header">
+          <div className="App-image" />
+          <h1 className="App-title">Hursley Fit52</h1>
+          <p className="App-links">
+            <Link to="/">Home</Link>
+            <Link to="/page/about">About</Link>
+            <Link to="/events">Events</Link>
+          </p>
+        </div>
       </header>
       <section className="App-content">
         <Switch>

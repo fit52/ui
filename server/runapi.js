@@ -2,6 +2,7 @@ const Cloudant = require('@cloudant/cloudant');
 const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('config');
+const moment = require('moment');
 
 const Cache = require('./utils/cache');
 
@@ -56,9 +57,18 @@ router.get('/events', async (req, res) => {
           $regex: '^event/',
         },
       },
+      fields: [
+        'date',
+        'number',
+        'course',
+        'counts',
+      ],
       sort: [{ number: 'desc' }],
       limit: maxEvents,
-    });
+    }).then(({ docs }) => docs.map(event => ({
+      title: moment(event.date).format('MMMM Do YYYY'),
+      ...event,
+    })));
 
     data = await cache.get(`events${maxEvents}`, findFunc);
   } catch (e) {
@@ -66,7 +76,7 @@ router.get('/events', async (req, res) => {
     return res.status(404).send();
   }
 
-  return res.json(data.docs);
+  return res.json(data);
 });
 
 router.get('/events/:id', async (req, res) => {

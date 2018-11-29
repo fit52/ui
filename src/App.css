@@ -4,28 +4,40 @@
 
 .App-header {
   background-color: #284B63;
-  height: 120px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  height: 100px;
 }
 
-.App-links {
+.App-inner-header {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
   max-width: 900px;
   margin: 0 auto;
+  align-items: center;
+  height: 100%;
+}
+
+.App-image {
+  height: 100px;
+  width: 150px;
+  background-image: url('./images/logo.png');
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: left center;
 }
 
 .App-links a {
   color: white;
+}
+
+.App-links a:not(:last-child) {
   margin-right: 1rem;
 }
 
 .App-title {
-  max-width: 900px;
-  margin: 0 auto;
   font-size: 1.5em;
   color: white;
+  flex-grow: 1;
 }
 
 .App-intro {
@@ -37,13 +49,9 @@
   margin: 2rem auto;
   background-color: white;
   padding: 2rem;
+  border-radius: 4px;
 }
 
 .App-post img {
   width: 100%;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }

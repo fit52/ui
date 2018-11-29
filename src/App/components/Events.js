@@ -29,7 +29,7 @@ export default class Events extends React.Component {
               {events.map(event => (
                 <li key={event.id}>
                   <Link to={`/events/${event.number}`}>
-                    {moment(event.date).format('MMMM Do YYYY')}
+                    {event.title}
                   </Link>
                 </li>
               ))}
