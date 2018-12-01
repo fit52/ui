@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { MdArrowBack } from 'react-icons/md';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 
 import api from '../services/api';
 import Spinner from './Spinner';
@@ -24,6 +26,10 @@ export default class Events extends React.Component {
         const event = {
           ...eventData,
           dateString: moment(eventData.date).format('MMMM Do YYYY'),
+          results: eventData.results.map(result => ({
+            ...result,
+            timeString: moment.duration(result.time).format('m:s'),
+          })),
         };
         this.setState({ event, loading: false });
       });
@@ -47,13 +53,19 @@ export default class Events extends React.Component {
             <p>Number of volunteers: {event.counts.volunteers}</p>
 
             <h3>Results</h3>
-            {event.results.map(result => (
-              <React.Fragment key={result.name}>
-                <h3>{result.name} {result.firstEvent && '(first time)'}</h3>
-                <p>Position: {result.pos}</p>
-                <p>Time: {result.time}</p>
-              </React.Fragment>
-            ))}
+            <ReactTable
+              data={event.results}
+              columns={[
+                { Header: 'Position', accessor: 'pos' },
+                { Header: 'Name', accessor: 'name' },
+                { Header: 'Distance (K)', accessor: 'distance' },
+                { Header: 'Times run', accessor: 'noEvents' },
+                { Header: 'Time (mm:ss)', accessor: 'timeString' },
+                { Header: 'Age Grade', accessor: 'ageGrade' },
+              ]}
+              showPagination={false}
+              defaultPageSize={event.results.length}
+            />
           </div>
         )}
       </div>
