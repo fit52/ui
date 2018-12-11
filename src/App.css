@@ -38,6 +38,7 @@
   font-size: 1.5em;
   color: white;
   flex-grow: 1;
+  margin: 0;
 }
 
 .App-intro {

@@ -1,13 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
-import { MdArrowBack } from 'react-icons/md';
-import ReactTable from 'react-table';
+import { DataTable, Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
 import 'react-table/react-table.css';
 
 import api from '../services/api';
 import Spinner from './Spinner';
+
+const {
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+  TableHeader,
+} = DataTable;
 
 export default class Events extends React.Component {
   static propTypes = {
@@ -19,6 +27,15 @@ export default class Events extends React.Component {
     loading: true,
   };
 
+  columns = [
+    { header: 'Position', key: 'pos' },
+    { header: 'Name', key: 'name' },
+    { header: 'Distance (K)', key: 'distance' },
+    { header: 'Times run', key: 'noEvents' },
+    { header: 'Time (mm:ss)', key: 'timeString' },
+    { header: 'Age Grade', key: 'ageGrade' },
+  ];
+
   componentDidMount() {
     const { match } = this.props;
     api.getEvent(match.params.eventId)
@@ -29,6 +46,7 @@ export default class Events extends React.Component {
           results: eventData.results.map(result => ({
             ...result,
             timeString: moment.duration(result.time).format('m:s'),
+            id: result.uuid,
           })),
         };
         this.setState({ event, loading: false });
@@ -43,8 +61,10 @@ export default class Events extends React.Component {
         <Spinner loading={loading} />
         {event && (
           <div className="Event">
-            <p><Link to="/events"><MdArrowBack /><span>Events</span></Link></p>
-            <h3>{event.dateString}</h3>
+            <Breadcrumb noTrailingSlash>
+              <BreadcrumbItem href="/events">Events</BreadcrumbItem>
+              <BreadcrumbItem href={`/events/${event.number}`}>{event.dateString}</BreadcrumbItem>
+            </Breadcrumb>
 
             <h3>Stats</h3>
             <p>Number of 2K runners: {event.counts.twok}</p>
@@ -53,18 +73,33 @@ export default class Events extends React.Component {
             <p>Number of volunteers: {event.counts.volunteers}</p>
 
             <h3>Results</h3>
-            <ReactTable
-              data={event.results}
-              columns={[
-                { Header: 'Position', accessor: 'pos' },
-                { Header: 'Name', accessor: 'name' },
-                { Header: 'Distance (K)', accessor: 'distance' },
-                { Header: 'Times run', accessor: 'noEvents' },
-                { Header: 'Time (mm:ss)', accessor: 'timeString' },
-                { Header: 'Age Grade', accessor: 'ageGrade' },
-              ]}
-              showPagination={false}
-              defaultPageSize={event.results.length}
+            <DataTable
+              rows={event.results}
+              headers={this.columns}
+              render={({ rows, headers, getHeaderProps }) => (
+                <TableContainer>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        {headers.map(header => (
+                          <TableHeader {...getHeaderProps({ header })}>
+                            {header.header}
+                          </TableHeader>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {rows.map(row => (
+                        <TableRow key={row.id}>
+                          {row.cells.map(cell => (
+                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                          ))}
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
             />
           </div>
         )}
