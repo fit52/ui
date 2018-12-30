@@ -37,9 +37,22 @@ const getEvent = async (id) => {
   return body;
 };
 
+const getRunner = async (id) => {
+  if (!id) {
+    throw Error('Please provide an ID');
+  }
+  const response = await fetch(`/api/run/runners/${id}`);
+  const body = response.json();
+  if (response.status !== 200) {
+    throw Error(body.message);
+  }
+  return body;
+};
+
 export default {
   getPosts,
   getPage,
   getEvents,
   getEvent,
+  getRunner,
 };

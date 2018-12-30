@@ -8,6 +8,7 @@ import Home from './App/components/Home';
 import Page from './App/components/Page';
 import Events from './App/components/Events';
 import Event from './App/components/Event';
+import Runner from './App/components/Runner';
 
 const App = () => (
   <Router>
@@ -29,6 +30,7 @@ const App = () => (
           <Route exact path="/page/:pageTitle" component={Page} />
           <Route exact path="/events" component={Events} />
           <Route exact path="/events/:eventId" component={Event} />
+          <Route exact path="/runners/:runnerId" component={Runner} />
           <Route exact>
             <React.Fragment>
               <h1>Page not found</h1>

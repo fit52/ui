@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { DataTable, Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
+import moment from 'moment';
+import { DataTable } from 'carbon-components-react';
 import 'react-table/react-table.css';
 
 import api from '../services/api';
@@ -18,65 +18,61 @@ const {
   TableHeader,
 } = DataTable;
 
-export default class Events extends React.Component {
+export default class Runner extends React.Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
   }
 
   state = {
-    event: null,
+    runner: null,
     loading: true,
   };
 
   columns = [
+    { header: 'Event', key: 'eventName' },
     { header: 'Position', key: 'pos' },
-    { header: 'Name', key: 'runner' },
     { header: 'Distance (K)', key: 'distance' },
-    { header: 'Times run', key: 'noEvents' },
     { header: 'Time (mm:ss)', key: 'timeString' },
-    { header: 'Age Grade', key: 'ageGrade' },
+    { header: 'Age Grade', key: 'ageGradePercent' },
   ];
 
   componentDidMount() {
     const { match } = this.props;
-    api.getEvent(match.params.eventId)
-      .then((eventData) => {
-        const event = {
-          ...eventData,
-          dateString: moment(eventData.date).format('MMMM Do YYYY'),
-          results: eventData.results.map(result => ({
-            ...result,
-            timeString: moment.duration(result.time).format('m:s'),
-            runner: (<Link to={`/runners/${result.uuid}`}>{result.name}</Link>),
-            id: result.uuid,
-          })),
-        };
-        this.setState({ event, loading: false });
-      });
+    api.getRunner(match.params.runnerId)
+      .then(runnerData => ({
+        ...runnerData,
+        eventList: runnerData.eventList.map(event => ({
+          ...event,
+          timeString: `${moment.duration(event.time).format('m:s')}  ${event.pb ? ' (PB)' : ''}`,
+          ageGradePercent: `${event.ageGrade}%`,
+          eventName: (
+            <Link to={`/events/${event.event.number}`}>
+              {moment(event.event.date).format('MMMM Do YYYY')}
+            </Link>),
+        })),
+      }))
+      .then(runner => this.setState({ runner, loading: false }));
   }
 
   render() {
-    const { event, loading } = this.state;
+    const { runner, loading } = this.state;
 
     return (
       <div>
         <Spinner loading={loading} />
-        {event && (
+        {runner && (
           <div className="Event">
-            <Breadcrumb noTrailingSlash>
-              <BreadcrumbItem href="/events">Events</BreadcrumbItem>
-              <BreadcrumbItem href={`/events/${event.number}`}>{event.dateString}</BreadcrumbItem>
-            </Breadcrumb>
+            <h3>{runner.fullname}</h3>
 
-            <h3>Stats</h3>
-            <p>Number of 2K runners: {event.counts.twok}</p>
-            <p>Number of 5K runners: {event.counts.fivek}</p>
-            <p>Number of first time runners: {event.counts.firstTimers}</p>
-            <p>Number of volunteers: {event.counts.volunteers}</p>
+            <p>Number of 2K runs: {runner.stats.no2k}</p>
+            <p>Number of 5K runs: {runner.stats.no5k}</p>
+            <p>Number of personal bests: {runner.stats.noPbs}</p>
+            <p>Number of times run: {runner.stats.noTotalEvents}</p>
 
             <h3>Results</h3>
+
             <DataTable
-              rows={event.results}
+              rows={runner.eventList}
               headers={this.columns}
               render={({ rows, headers, getHeaderProps }) => (
                 <TableContainer>

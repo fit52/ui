@@ -23,7 +23,7 @@ export default class Events extends React.Component {
     return (
       <div>
         <Spinner loading={loading} />
-        {events.length && (
+        {events.length > 0 && (
           <div className="Events">
             <h3>Recent events</h3>
             <section className="bx--grid">

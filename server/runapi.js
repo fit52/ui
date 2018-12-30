@@ -79,6 +79,7 @@ router.get('/events', async (req, res) => {
   return res.json(data);
 });
 
+
 router.get('/events/:id', async (req, res) => {
   const { id } = req.params;
   let data;
@@ -88,6 +89,37 @@ router.get('/events/:id', async (req, res) => {
     const eventId = `event/${id}`;
     const getEvent = () => db.get(eventId);
     data = await cache.get(eventId, getEvent);
+  } catch (e) {
+    return res.status(404).send();
+  }
+
+  const { _id, _rev, ...event } = data;
+  return res.json(event);
+});
+
+/*
+For this search string to work, make sure the database has this search index:
+
+{
+   "index": {
+      "fields": [
+         "uuid",
+         "_id"
+      ]
+   },
+   "name": "event-index",
+   "type": "json"
+}
+*/
+
+router.get('/runners/:id', async (req, res) => {
+  const { id } = req.params;
+  let data;
+
+  try {
+    const runnerId = `runner/${id}`;
+    const getRunner = () => db.get(runnerId);
+    data = await cache.get(runnerId, getRunner);
   } catch (e) {
     return res.status(404).send();
   }
