@@ -124,8 +124,17 @@ router.get('/runners/:id', async (req, res) => {
     return res.status(404).send();
   }
 
-  const { _id, _rev, ...event } = data;
-  return res.json(event);
+  const { _id, _rev, ...runner } = data;
+  const {
+    eventList, stats, fullname, uuid,
+  } = runner;
+
+  return res.json({
+    eventList,
+    stats,
+    fullname,
+    uuid,
+  });
 });
 
 module.exports = router;
