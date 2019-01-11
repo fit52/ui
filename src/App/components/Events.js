@@ -25,8 +25,8 @@ export default class Events extends React.Component {
         <Spinner loading={loading} />
         {events.length > 0 && (
           <div className="Events">
-            <h3>Recent events</h3>
-            <section className="bx--grid">
+            <h2>Recent events</h2>
+            <section className="bx--grid Events-grid">
               <div className="bx--row">
                 {events.map(event => (
                   <div className="bx--col-xs-3">

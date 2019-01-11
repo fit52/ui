@@ -1,9 +1,15 @@
+@import './styles/vars';
+
+$app-width: 900px;
+
 .App {
-  
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
 }
 
 .App-header {
-  background-color: #284B63;
+  background-color: $ui-01;
   height: 100px;
 }
 
@@ -11,7 +17,7 @@
   display: flex;
   flex-flow: row;
   justify-content: flex-start;
-  max-width: 900px;
+  max-width: $app-width;
   margin: 0 auto;
   align-items: center;
   height: 100%;
@@ -26,17 +32,12 @@
   background-position: left center;
 }
 
-.App-links a {
-  color: white;
-}
-
 .App-links a:not(:last-child) {
   margin-right: 1rem;
 }
 
 .App-title {
   font-size: 1.5em;
-  color: white;
   flex-grow: 1;
   margin: 0;
 }
@@ -45,14 +46,36 @@
   font-size: large;
 }
 
+.App-banner {
+  height: 250px;
+  background-image: url('./images/running1.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.App-body {
+  flex-grow: 1;
+}
+
 .App-content {
-  max-width: 900px;
-  margin: 2rem auto;
-  background-color: white;
-  padding: 2rem;
+  max-width: $app-width;
+  margin: -3rem auto 2rem;
+  background-color: $ui-01;
+  padding: 1rem 2rem 2rem;
   border-radius: 4px;
 }
 
 .App-post img {
   width: 100%;
+}
+
+.App-footer {
+  background-color: $inverse-02;
+  color: $ui-03;
+  padding: 1rem 0;
+}
+
+.App-inner-footer {
+  margin: 0 auto;
+  max-width: $app-width;
 }

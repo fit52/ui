@@ -4,10 +4,8 @@
 @import './styles/carbon.scss';
 
 body {
-  // background-color: #D9D9D9;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
 }
 
 body * {
@@ -15,6 +13,5 @@ body * {
 }
 
 h1, h2, h3, h4 {
-  color: #3C6E71;
   margin: 1rem 0;
 }
