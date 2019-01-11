@@ -45,7 +45,7 @@ const App = () => (
       </div>
       <footer className="App-footer">
         <div className="App-inner-footer">
-          <span>Copyright Andrew Daniel 2019</span>
+          <span>Copyright Andrew Daniel 2019. Photo by Tomasz Woźniak on Unsplash</span>
         </div>
       </footer>
     </div>
