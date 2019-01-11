@@ -1,3 +1,5 @@
+import { formatRunner, formatEvent } from './format';
+
 const getPosts = async () => {
   const response = await fetch('/api/site/posts');
   const body = await response.json();
@@ -30,11 +32,11 @@ const getEvent = async (id) => {
     throw Error('Please provide an ID');
   }
   const response = await fetch(`/api/run/events/${id}`);
-  const body = response.json();
+  const body = await response.json();
   if (response.status !== 200) {
     throw Error(body.message);
   }
-  return body;
+  return formatEvent(body);
 };
 
 const getRunner = async (id) => {
@@ -42,11 +44,11 @@ const getRunner = async (id) => {
     throw Error('Please provide an ID');
   }
   const response = await fetch(`/api/run/runners/${id}`);
-  const body = response.json();
+  const body = await response.json();
   if (response.status !== 200) {
     throw Error(body.message);
   }
-  return body;
+  return formatRunner(body);
 };
 
 export default {

@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
 import { DataTable } from 'carbon-components-react';
 import 'react-table/react-table.css';
 
@@ -39,18 +37,6 @@ export default class Runner extends React.Component {
   componentDidMount() {
     const { match } = this.props;
     api.getRunner(match.params.runnerId)
-      .then(runnerData => ({
-        ...runnerData,
-        eventList: runnerData.eventList.map(event => ({
-          ...event,
-          timeString: `${moment.duration(event.time).format('m:s')}  ${event.pb ? ' (PB)' : ''}`,
-          ageGradePercent: `${event.ageGrade}%`,
-          eventName: (
-            <Link to={`/events/${event.event.number}`}>
-              {moment(event.event.date).format('MMMM Do YYYY')}
-            </Link>),
-        })),
-      }))
       .then(runner => this.setState({ runner, loading: false }));
   }
 

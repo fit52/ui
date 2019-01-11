@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import { Link } from 'react-router-dom';
 import { DataTable, Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
 import 'react-table/react-table.css';
 
@@ -40,17 +38,7 @@ export default class Events extends React.Component {
   componentDidMount() {
     const { match } = this.props;
     api.getEvent(match.params.eventId)
-      .then((eventData) => {
-        const event = {
-          ...eventData,
-          dateString: moment(eventData.date).format('MMMM Do YYYY'),
-          results: eventData.results.map(result => ({
-            ...result,
-            timeString: moment.duration(result.time).format('m:s'),
-            runner: (<Link to={`/runners/${result.uuid}`}>{result.name}</Link>),
-            id: result.uuid,
-          })),
-        };
+      .then((event) => {
         this.setState({ event, loading: false });
       });
   }
