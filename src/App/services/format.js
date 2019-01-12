@@ -3,31 +3,42 @@ import { Link } from 'react-router-dom';
 import { Tag } from 'carbon-components-react';
 import moment from 'moment';
 
-const formatAgeGrade = (ageGrade) => {
-  let agePercentage = ageGrade;
+const normaliseAgeGrade = (ageGrade) => {
+  let normalAge = ageGrade;
   if (typeof ageGrade === 'number' && ageGrade < 1) {
-    agePercentage = (ageGrade * 100).toFixed(2);
+    normalAge = (ageGrade * 100).toFixed(2);
   }
-  return `${agePercentage}%`;
+  return normalAge;
 };
+
+const formatAgeGrade = ageGrade => `${normaliseAgeGrade(ageGrade)}%`;
 
 export const formatRunner = runnerData => ({
   ...runnerData,
   eventList: runnerData.eventList.map(event => ({
     ...event,
-    timeString: (
-      <React.Fragment>
-        <span>{moment.duration(event.time).format('m:s')}</span>
-        {event.pb && <Tag className="PB-tag" type="ibm" title="Personal Best">PB</Tag>}
-      </React.Fragment>
-    ),
-    ageGradePercent: formatAgeGrade(event.ageGrade),
+    timeString: {
+      value: (
+        <React.Fragment>
+          <span>{moment.duration(event.time).format('m:s')}</span>
+          {event.pb && <Tag className="PB-tag" type="ibm" title="Personal Best">PB</Tag>}
+        </React.Fragment>
+      ),
+      sortValue: moment.duration(event.time).valueOf(),
+    },
+    ageGradePercent: {
+      value: formatAgeGrade(event.ageGrade),
+      sortValue: parseFloat(normaliseAgeGrade(event.ageGrade)),
+    },
     id: event.event.date,
-    eventTime: new Date(event.event.date).getTime(),
-    eventName: (
-      <Link className="bx--link" to={`/events/${event.event.number}`}>
-        {moment(event.event.date).format('MMMM Do YYYY')}
-      </Link>),
+    eventName: {
+      value: (
+        <Link className="bx--link" to={`/events/${event.event.number}`}>
+          {moment(event.event.date).format('MMMM Do YYYY')}
+        </Link>
+      ),
+      sortValue: moment(event.event.date).valueOf(),
+    },
   })).sort((a, b) => (a.eventTime < b.eventTime ? 1 : -1)),
 });
 
@@ -36,14 +47,40 @@ export const formatEvent = eventData => ({
   dateString: moment(eventData.date).format('MMMM Do YYYY'),
   results: eventData.results.map(result => ({
     ...result,
-    ageGrade: formatAgeGrade(result.ageGrade),
-    timeString: (
-      <React.Fragment>
-        <span>{moment.duration(result.time).format('m:s')}</span>
-        {result.pb && <Tag className="PB-tag" type="ibm" title="Personal Best">PB</Tag>}
-      </React.Fragment>
-    ),
-    runner: (<Link className="bx--link" to={`/runners/${result.uuid}`}>{result.name}</Link>),
+    ageGrade: {
+      value: formatAgeGrade(result.ageGrade),
+      sortValue: result.ageGrade,
+    },
+    timeString: {
+      value: (
+        <React.Fragment>
+          <span>{moment.duration(result.time).format('m:s')}</span>
+          {result.pb && <Tag className="PB-tag" type="ibm" title="Personal Best">PB</Tag>}
+        </React.Fragment>
+      ),
+      sortValue: moment.duration(result.time).valueOf(),
+    },
+    runner: {
+      value: (<Link className="bx--link" to={`/runners/${result.uuid}`}>{result.name}</Link>),
+      sortValue: result.name,
+    },
     id: result.uuid,
   })),
 });
+
+export const sortCellValues = (cellA, cellB, info) => {
+  const {
+    compare, locale, sortDirection, sortStates,
+  } = info;
+
+  const sortA = cellA.sortValue ? cellA.sortValue : cellA;
+  const sortB = cellB.sortValue ? cellB.sortValue : cellB;
+
+  if (sortDirection === sortStates.DESC) {
+    return compare(sortB, sortA, locale);
+  }
+
+  return compare(sortA, sortB, locale);
+};
+
+export const formatTableCell = cellValue => (cellValue.value ? cellValue.value : cellValue);

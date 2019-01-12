@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { DataTable } from 'carbon-components-react';
 import 'react-table/react-table.css';
 
+import { sortCellValues, formatTableCell } from '../services/format';
 import api from '../services/api';
 import Spinner from './Spinner';
 
@@ -64,6 +65,7 @@ export default class Runner extends React.Component {
             <DataTable
               rows={runner.eventList}
               headers={this.columns}
+              sortRow={sortCellValues}
               render={({ rows, headers, getHeaderProps }) => (
                 <TableContainer>
                   <Table>
@@ -80,7 +82,7 @@ export default class Runner extends React.Component {
                       {rows.map(row => (
                         <TableRow key={row.id}>
                           {row.cells.map(cell => (
-                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                            <TableCell key={cell.id}>{formatTableCell(cell.value)}</TableCell>
                           ))}
                         </TableRow>
                       ))}
