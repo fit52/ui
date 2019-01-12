@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-  BrowserRouter as Router, Route, Switch,
+  BrowserRouter as Router, Route, Switch, Link,
 } from 'react-router-dom';
-import { Link } from 'carbon-components-react';
 import './App.scss';
 
 import Home from './App/components/Home';
@@ -19,9 +18,9 @@ const App = () => (
           <div className="App-image" />
           <h1 className="App-title">Hursley Fit52</h1>
           <p className="App-links">
-            <Link href="/">Home</Link>
-            <Link href="/page/about">About</Link>
-            <Link href="/events">Events</Link>
+            <Link className="bx--link" to="/">Home</Link>
+            <Link className="bx--link" to="/page/about">About</Link>
+            <Link className="bx--link" to="/events">Events</Link>
           </p>
         </div>
       </header>

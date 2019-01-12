@@ -1,5 +1,12 @@
+@import "../../styles/vars";
+
 .EventTile {
   margin-bottom: 1rem;
+
+  &:hover {
+    background-color: $ui-02;
+    border-color: $brand-01;
+  }
 }
 
 .Events-grid {

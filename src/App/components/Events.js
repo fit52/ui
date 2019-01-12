@@ -1,5 +1,6 @@
 import React from 'react';
-import { ClickableTile } from 'carbon-components-react';
+import { Link } from 'react-router-dom';
+import { Tile } from 'carbon-components-react';
 import Spinner from './Spinner';
 
 import api from '../services/api';
@@ -30,10 +31,12 @@ export default class Events extends React.Component {
               <div className="bx--row">
                 {events.map(event => (
                   <div className="bx--col-xs-3">
-                    <ClickableTile href={`/events/${event.number}`} className="EventTile">
-                      <p>{event.title}</p>
-                      <p>Runners: {event.counts.total}</p>
-                    </ClickableTile>
+                    <Link to={`/events/${event.number}`}>
+                      <Tile className="EventTile">
+                        <p>{event.title}</p>
+                        <p>Runners: {event.counts.total}</p>
+                      </Tile>
+                    </Link>
                   </div>
                 ))}
               </div>

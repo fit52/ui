@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Tag } from 'carbon-components-react';
 import moment from 'moment';
 
 const formatAgeGrade = (ageGrade) => {
@@ -14,12 +15,17 @@ export const formatRunner = runnerData => ({
   ...runnerData,
   eventList: runnerData.eventList.map(event => ({
     ...event,
-    timeString: `${moment.duration(event.time).format('m:s')}  ${event.pb ? ' (PB)' : ''}`,
+    timeString: (
+      <React.Fragment>
+        <span>{moment.duration(event.time).format('m:s')}</span>
+        {event.pb && <Tag className="PB-tag" type="ibm" title="Personal Best">PB</Tag>}
+      </React.Fragment>
+    ),
     ageGradePercent: formatAgeGrade(event.ageGrade),
     id: event.event.date,
     eventTime: new Date(event.event.date).getTime(),
     eventName: (
-      <Link to={`/events/${event.event.number}`}>
+      <Link className="bx--link" to={`/events/${event.event.number}`}>
         {moment(event.event.date).format('MMMM Do YYYY')}
       </Link>),
   })).sort((a, b) => (a.eventTime < b.eventTime ? 1 : -1)),
@@ -31,8 +37,13 @@ export const formatEvent = eventData => ({
   results: eventData.results.map(result => ({
     ...result,
     ageGrade: formatAgeGrade(result.ageGrade),
-    timeString: moment.duration(result.time).format('m:s'),
-    runner: (<Link to={`/runners/${result.uuid}`}>{result.name}</Link>),
+    timeString: (
+      <React.Fragment>
+        <span>{moment.duration(result.time).format('m:s')}</span>
+        {result.pb && <Tag className="PB-tag" type="ibm" title="Personal Best">PB</Tag>}
+      </React.Fragment>
+    ),
+    runner: (<Link className="bx--link" to={`/runners/${result.uuid}`}>{result.name}</Link>),
     id: result.uuid,
   })),
 });
