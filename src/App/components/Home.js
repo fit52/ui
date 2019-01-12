@@ -24,8 +24,8 @@ export default class Home extends React.Component {
         {error}
         {posts.map(post => (
           <div key={post.id} className="App-post">
-            <h3>{post.title}</h3>
-            <p dangerouslySetInnerHTML={{ __html: post.content }} />
+            <h1>{post.title}</h1>
+            <section dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>
         ))}
       </div>

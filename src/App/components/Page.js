@@ -29,9 +29,9 @@ export default class Page extends React.Component {
       <div>
         <Spinner loading={loading} />
         {page && (
-          <div className="App-post">
-            <h3>{page.title}</h3>
-            <p dangerouslySetInnerHTML={{ __html: page.content }} />
+          <div className="App-post App-page">
+            <h1>{page.title}</h1>
+            <section dangerouslySetInnerHTML={{ __html: page.content }} />
           </div>
         )}
       </div>

@@ -1,3 +1,5 @@
+import './Runner.scss';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DataTable } from 'carbon-components-react';
@@ -47,15 +49,17 @@ export default class Runner extends React.Component {
       <div>
         <Spinner loading={loading} />
         {runner && (
-          <div className="Event">
-            <h3>{runner.fullname}</h3>
+          <div className="Runner">
+            <h1>{runner.fullname}</h1>
 
-            <p>Number of 2K runs: {runner.stats.no2k}</p>
-            <p>Number of 5K runs: {runner.stats.no5k}</p>
-            <p>Number of personal bests: {runner.stats.noPbs}</p>
-            <p>Number of times run: {runner.stats.noTotalEvents}</p>
+            <section className="Runner-stats">
+              <p>Number of 2K runs: {runner.stats.no2k}</p>
+              <p>Number of 5K runs: {runner.stats.no5k}</p>
+              <p>Number of personal bests: {runner.stats.noPbs}</p>
+              <p>Number of times run: {runner.stats.noTotalEvents}</p>
+            </section>
 
-            <h3>Results</h3>
+            <h1>Results</h1>
 
             <DataTable
               rows={runner.eventList}

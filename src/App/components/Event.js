@@ -1,3 +1,5 @@
+import './Event.scss';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DataTable, Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
@@ -51,18 +53,20 @@ export default class Events extends React.Component {
         <Spinner loading={loading} />
         {event && (
           <div className="Event">
-            <Breadcrumb noTrailingSlash>
+            <Breadcrumb noTrailingSlash className="Event-breadcrumb">
               <BreadcrumbItem href="/events">Events</BreadcrumbItem>
               <BreadcrumbItem href={`/events/${event.number}`}>{event.dateString}</BreadcrumbItem>
             </Breadcrumb>
 
-            <h3>Stats</h3>
-            <p>Number of 2K runners: {event.counts.twok}</p>
-            <p>Number of 5K runners: {event.counts.fivek}</p>
-            <p>Number of first time runners: {event.counts.firstTimers}</p>
-            <p>Number of volunteers: {event.counts.volunteers}</p>
+            <section className="Event-stats">
+              <h2>Stats</h2>
+              <p>Number of 2K runners: {event.counts.twok}</p>
+              <p>Number of 5K runners: {event.counts.fivek}</p>
+              <p>Number of first time runners: {event.counts.firstTimers}</p>
+              <p>Number of volunteers: {event.counts.volunteers}</p>
+            </section>
 
-            <h3>Results</h3>
+            <h2>Results</h2>
             <DataTable
               rows={event.results}
               headers={this.columns}

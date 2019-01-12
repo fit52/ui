@@ -26,6 +26,7 @@ $app-width: 900px;
 .App-image {
   height: 100px;
   width: 150px;
+  max-width: 23vw;
   background-image: url('./images/logo.png');
   background-size: 90%;
   background-repeat: no-repeat;
@@ -65,14 +66,20 @@ $app-width: 900px;
   border-radius: 4px;
 }
 
-.App-post img {
-  width: 100%;
+.App-post {
+  img {
+    width: 100%;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
 }
 
 .App-footer {
   background-color: $ui-05;
   color: $ui-03;
-  padding: 1rem 0;
+  padding: 1rem 5px;
 }
 
 .App-inner-footer {
