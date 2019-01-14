@@ -16,7 +16,7 @@ const App = () => (
       <header className="App-header">
         <div className="App-inner-header">
           <div className="App-image" />
-          <h1 className="App-title">Hursley Fit52</h1>
+          <h1 className="App-title">Hursley fit<strong>52</strong></h1>
           <p className="App-links">
             <Link className="bx--link" to="/">Home</Link>
             <Link className="bx--link" to="/page/about">About</Link>
