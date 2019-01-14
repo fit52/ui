@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { Tag } from 'carbon-components-react';
 import moment from 'moment';
 
+const runnerTimeFormat = 'mm:ss';
+const pbTag = (<Tag className="PB-tag" type="ibm" title="Personal Best">PB</Tag>);
+
 const normaliseAgeGrade = (ageGrade) => {
   let normalAge = ageGrade;
   if (typeof ageGrade === 'number' && ageGrade < 1) {
@@ -20,8 +23,8 @@ export const formatRunner = runnerData => ({
     timeString: {
       value: (
         <React.Fragment>
-          <span>{moment.duration(event.time).format('m:s')}</span>
-          {event.pb && <Tag className="PB-tag" type="ibm" title="Personal Best">PB</Tag>}
+          {moment.duration(event.time).format(runnerTimeFormat)}
+          {event.pb && pbTag}
         </React.Fragment>
       ),
       sortValue: moment.duration(event.time).valueOf(),
@@ -54,8 +57,8 @@ export const formatEvent = eventData => ({
     timeString: {
       value: (
         <React.Fragment>
-          <span>{moment.duration(result.time).format('m:s')}</span>
-          {result.pb && <Tag className="PB-tag" type="ibm" title="Personal Best">PB</Tag>}
+          {moment.duration(result.time).format(runnerTimeFormat)}
+          {result.pb && pbTag}
         </React.Fragment>
       ),
       sortValue: moment.duration(result.time).valueOf(),
