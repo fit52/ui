@@ -52,6 +52,7 @@ $app-width: 900px;
   background-image: url('./images/running1.jpg');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
 }
 
 .App-body {
@@ -63,7 +64,7 @@ $app-width: 900px;
   margin: -3rem auto 2rem;
   background-color: $ui-01;
   padding: 1rem 2rem 2rem;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
 .App-post {
