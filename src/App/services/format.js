@@ -68,7 +68,7 @@ export const formatEvent = eventData => ({
       sortValue: result.name,
     },
     id: result.uuid,
-  })),
+  })).sort((a, b) => (a.name < b.name ? -1 : 1)),
 });
 
 export const sortCellValues = (cellA, cellB, info) => {
