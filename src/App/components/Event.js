@@ -63,7 +63,9 @@ export default class Events extends React.Component {
               <h2>Stats</h2>
               <p>Number of 2K runners: {event.counts.twok}</p>
               <p>Number of 5K runners: {event.counts.fivek}</p>
-              <p>Number of first time runners: {event.counts.firstTimers}</p>
+              <p>Number of first time runners: {
+                event.counts.firstTimers || event.counts.firstTimes }
+              </p>
               <p>Number of volunteers: {event.counts.volunteers}</p>
             </section>
 

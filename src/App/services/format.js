@@ -64,7 +64,11 @@ export const formatEvent = eventData => ({
       sortValue: moment.duration(result.time).valueOf(),
     },
     runner: {
-      value: (<Link className="bx--link" to={`/runners/${result.uuid}`}>{result.name}</Link>),
+      value: (
+        <Link className="bx--link" to={`/runners/${result.uuid}`}>
+          <span>{result.name}</span>
+          {result.firstEvent && <Tag className="PB-tag" type="ibm" title="First time">FT</Tag>}
+        </Link>),
       sortValue: result.name,
     },
     id: result.uuid,
