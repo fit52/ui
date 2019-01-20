@@ -6,7 +6,7 @@ import { DataTable } from 'carbon-components-react';
 import 'react-table/react-table.css';
 
 import { sortCellValues, formatTableCell } from '../services/format';
-import api from '../services/api';
+import { getRunner } from '../services/api';
 import Spinner from './Spinner';
 
 const {
@@ -39,7 +39,7 @@ export default class Runner extends React.Component {
 
   componentDidMount() {
     const { match } = this.props;
-    api.getRunner(match.params.runnerId)
+    getRunner(match.params.runnerId)
       .then(runner => this.setState({ runner, loading: false }));
   }
 

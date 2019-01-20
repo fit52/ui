@@ -1,6 +1,6 @@
 import { formatRunner, formatEvent } from './format';
 
-const getPosts = async () => {
+export const getPosts = async () => {
   const response = await fetch('/api/site/posts');
   const body = await response.json();
   if (response.status !== 200) {
@@ -9,7 +9,7 @@ const getPosts = async () => {
   return body;
 };
 
-const getPage = async (pageTitle) => {
+export const getPage = async (pageTitle) => {
   const response = await fetch(`/api/site/page/${pageTitle}`);
   const body = response.json();
   if (response.status !== 200) {
@@ -18,7 +18,7 @@ const getPage = async (pageTitle) => {
   return body;
 };
 
-const getEvents = async (limit = 10) => {
+export const getEvents = async (limit = 10) => {
   const response = await fetch(`/api/run/events?limit=${limit}`);
   const body = response.json();
   if (response.status !== 200) {
@@ -27,7 +27,7 @@ const getEvents = async (limit = 10) => {
   return body;
 };
 
-const getEvent = async (id) => {
+export const getEvent = async (id) => {
   if (!id) {
     throw Error('Please provide an ID');
   }
@@ -39,7 +39,7 @@ const getEvent = async (id) => {
   return formatEvent(body);
 };
 
-const getRunner = async (id) => {
+export const getRunner = async (id) => {
   if (!id) {
     throw Error('Please provide an ID');
   }
@@ -51,10 +51,11 @@ const getRunner = async (id) => {
   return formatRunner(body);
 };
 
-export default {
-  getPosts,
-  getPage,
-  getEvents,
-  getEvent,
-  getRunner,
+export const getRecords = async () => {
+  const response = await fetch('/api/run/globalrecords');
+  const body = await response.json();
+  if (response.status !== 200) {
+    throw Error(body.message);
+  }
+  return body;
 };

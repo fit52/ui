@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Spinner from './Spinner';
 
-import api from '../services/api';
+import { getPage } from '../services/api';
 
 export default class Page extends React.Component {
   static propTypes = {
@@ -17,7 +17,7 @@ export default class Page extends React.Component {
 
   componentDidMount() {
     const { location, history } = this.props;
-    api.getPage(location.pathname.substr('/page/'.length))
+    getPage(location.pathname.substr('/page/'.length))
       .then(page => this.setState({ page, loading: false }))
       .catch(() => history.replace('/404'));
   }

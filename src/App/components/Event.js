@@ -6,7 +6,7 @@ import { DataTable, Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
 import 'react-table/react-table.css';
 
 import { sortCellValues, formatTableCell } from '../services/format';
-import api from '../services/api';
+import { getEvent } from '../services/api';
 import Spinner from './Spinner';
 
 const {
@@ -40,7 +40,7 @@ export default class Events extends React.Component {
 
   componentDidMount() {
     const { match } = this.props;
-    api.getEvent(match.params.eventId)
+    getEvent(match.params.eventId)
       .then((event) => {
         this.setState({ event, loading: false });
       });

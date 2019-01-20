@@ -1,6 +1,6 @@
 import React from 'react';
 import Spinner from './Spinner';
-import api from '../services/api';
+import { getPosts } from '../services/api';
 
 export default class Home extends React.Component {
   state = {
@@ -10,7 +10,7 @@ export default class Home extends React.Component {
   };
 
   componentDidMount() {
-    api.getPosts()
+    getPosts()
       .then(posts => this.setState({ posts, loading: false }))
       .catch(() => this.setState({ error: 'There was an error loading posts', loading: false }));
   }

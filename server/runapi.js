@@ -137,4 +137,17 @@ router.get('/runners/:id', async (req, res) => {
   });
 });
 
+router.get('/globalrecords', async (req, res) => {
+  let data;
+  try {
+    const getRecords = () => db.get('global_records');
+    data = await cache.get('records', getRecords);
+  } catch (e) {
+    return res.status(404).send();
+  }
+
+  const { _rev, _id, ...records } = data;
+  return res.json({ ...records });
+});
+
 module.exports = router;

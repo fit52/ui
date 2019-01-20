@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Tile } from 'carbon-components-react';
 import Spinner from './Spinner';
 
-import api from '../services/api';
+import { getEvents } from '../services/api';
 
 import './Events.scss';
 
@@ -14,7 +14,7 @@ export default class Events extends React.Component {
   };
 
   componentDidMount() {
-    api.getEvents()
+    getEvents()
       .then(events => this.setState({ events, loading: false }));
   }
 
