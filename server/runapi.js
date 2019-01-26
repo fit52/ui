@@ -46,8 +46,9 @@ For this search string to work, make sure the database has this search index:
 */
 
 router.get('/events', async (req, res) => {
-  const { limit } = req.query;
+  const { limit = '20', offset = '0' } = req.query;
   const maxEvents = parseInt(limit, 10);
+  const offsetEvents = parseInt(offset, 10);
   let data;
 
   try {
@@ -65,6 +66,7 @@ router.get('/events', async (req, res) => {
       ],
       sort: [{ number: 'desc' }],
       limit: maxEvents,
+      skip: offsetEvents,
     }).then(({ docs }) => docs.map(event => ({
       title: moment(event.date).format('MMMM Do YYYY'),
       ...event,
@@ -76,7 +78,11 @@ router.get('/events', async (req, res) => {
     return res.status(404).send();
   }
 
-  return res.json(data);
+  return res.json({
+    events: data,
+    offset: offsetEvents,
+    limit: maxEvents,
+  });
 });
 
 

@@ -18,13 +18,13 @@ export const getPage = async (pageTitle) => {
   return body;
 };
 
-export const getEvents = async (limit = 10) => {
-  const response = await fetch(`/api/run/events?limit=${limit}`);
-  const body = response.json();
+export const getEvents = async (limit = 10, offset = 0) => {
+  const response = await fetch(`/api/run/events?limit=${limit}&offset=${offset}`);
+  const body = await response.json();
   if (response.status !== 200) {
     throw Error(body.message);
   }
-  return body;
+  return body.events;
 };
 
 export const getEvent = async (id) => {
