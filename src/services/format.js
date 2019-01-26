@@ -75,6 +75,21 @@ export const formatEvent = eventData => ({
   })).sort((a, b) => (a.name < b.name ? -1 : 1)),
 });
 
+export const formatEvents = events => events.map(event => ({
+  ...event,
+  ...event.counts,
+  firstTimes: event.counts.firstTimers || event.counts.firstTimes,
+  id: event.number,
+  name: {
+    value: (
+      <Link className="bx--link" to={`/events/${event.number}`}>
+        <span>{event.title}</span>
+      </Link>
+    ),
+    sortValue: moment(event.date).valueOf(),
+  },
+}));
+
 export const sortCellValues = (cellA, cellB, info) => {
   const {
     compare, locale, sortDirection, sortStates,

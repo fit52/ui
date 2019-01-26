@@ -1,4 +1,4 @@
-import { formatRunner, formatEvent } from './format';
+import { formatRunner, formatEvent, formatEvents } from './format';
 
 export const getPosts = async () => {
   const response = await fetch('/api/site/posts');
@@ -18,13 +18,13 @@ export const getPage = async (pageTitle) => {
   return body;
 };
 
-export const getEvents = async (limit = 10, offset = 0) => {
+export const getEvents = async (limit = 50, offset = 0) => {
   const response = await fetch(`/api/run/events?limit=${limit}&offset=${offset}`);
   const body = await response.json();
   if (response.status !== 200) {
     throw Error(body.message);
   }
-  return body.events;
+  return formatEvents(body.events);
 };
 
 export const getEvent = async (id) => {
