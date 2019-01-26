@@ -1,33 +1,33 @@
 import React from 'react';
 import Spinner from './Spinner';
-import { getPosts } from '../services/api';
+import { getPage } from '../services/api';
 
 export default class Home extends React.Component {
   state = {
-    posts: [],
+    page: null,
     loading: true,
     error: null,
   };
 
   componentDidMount() {
-    getPosts()
-      .then(posts => this.setState({ posts, loading: false }))
+    getPage('home')
+      .then(page => this.setState({ page, loading: false }))
       .catch(() => this.setState({ error: 'There was an error loading posts', loading: false }));
   }
 
   render() {
-    const { posts, loading, error } = this.state;
+    const { page, loading, error } = this.state;
 
     return (
       <div>
         <Spinner loading={loading} />
         {error}
-        {posts.map(post => (
-          <div key={post.id} className="App-post">
-            <h1>{post.title}</h1>
-            <section dangerouslySetInnerHTML={{ __html: post.content }} />
+        {page && (
+          <div className="App-post App-page">
+            <h1>{page.title}</h1>
+            <section dangerouslySetInnerHTML={{ __html: page.content }} />
           </div>
-        ))}
+        )}
       </div>
     );
   }
