@@ -2,22 +2,9 @@ import './Runner.scss';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DataTable } from 'carbon-components-react';
-import 'react-table/react-table.css';
-
-import { sortCellValues, formatTableCell } from '../services/format';
 import { getRunner } from '../services/api';
 import Spinner from '../components/Spinner';
-
-const {
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-  TableHeader,
-} = DataTable;
+import Table from '../components/Table';
 
 export default class Runner extends React.Component {
   static propTypes = {
@@ -62,34 +49,9 @@ export default class Runner extends React.Component {
 
             <h1>Results</h1>
 
-            <DataTable
+            <Table
               rows={runner.eventList}
               headers={this.columns}
-              sortRow={sortCellValues}
-              render={({ rows, headers, getHeaderProps }) => (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        {headers.map(header => (
-                          <TableHeader {...getHeaderProps({ header })}>
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map(row => (
-                        <TableRow key={row.id}>
-                          {row.cells.map(cell => (
-                            <TableCell key={cell.id}>{formatTableCell(cell.value)}</TableCell>
-                          ))}
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
             />
           </div>
         )}

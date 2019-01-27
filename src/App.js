@@ -9,6 +9,7 @@ import Page from './views/Page';
 import Events from './views/Events';
 import Event from './views/Event';
 import Runner from './views/Runner';
+import Records from './views/Records';
 
 const App = () => (
   <Router>
@@ -21,6 +22,7 @@ const App = () => (
             <Link className="bx--link" to="/">Home</Link>
             <Link className="bx--link" to="/page/about">About</Link>
             <Link className="bx--link" to="/events">Events</Link>
+            <Link className="bx--link" to="/records">Records</Link>
           </p>
         </div>
       </header>
@@ -31,6 +33,7 @@ const App = () => (
             <Route exact path="/" component={Home} />
             <Route exact path="/page/:pageTitle" component={Page} />
             <Route exact path="/events" component={Events} />
+            <Route exact path="/records" component={Records} />
             <Route exact path="/events/:eventId" component={Event} />
             <Route exact path="/runners/:runnerId" component={Runner} />
             <Route exact>

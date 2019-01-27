@@ -1,4 +1,6 @@
-import { formatRunner, formatEvent, formatEvents } from './format';
+import {
+  formatRunner, formatEvent, formatEvents, formatRecords,
+} from './format';
 
 export const getPosts = async () => {
   const response = await fetch('/api/site/posts');
@@ -57,5 +59,6 @@ export const getRecords = async () => {
   if (response.status !== 200) {
     throw Error(body.message);
   }
-  return body;
+  const records = formatRecords(body);
+  return records;
 };

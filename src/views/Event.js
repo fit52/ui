@@ -2,22 +2,11 @@ import './Event.scss';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DataTable, Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
-import 'react-table/react-table.css';
+import { Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
 
-import { sortCellValues, formatTableCell } from '../services/format';
 import { getEvent } from '../services/api';
 import Spinner from '../components/Spinner';
-
-const {
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-  TableHeader,
-} = DataTable;
+import Table from '../components/Table';
 
 export default class Events extends React.Component {
   static propTypes = {
@@ -70,34 +59,9 @@ export default class Events extends React.Component {
             </section>
 
             <h2>Results</h2>
-            <DataTable
+            <Table
               rows={event.results}
               headers={this.columns}
-              sortRow={sortCellValues}
-              render={({ rows, headers, getHeaderProps }) => (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        {headers.map(header => (
-                          <TableHeader {...getHeaderProps({ header })}>
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map(row => (
-                        <TableRow key={row.id}>
-                          {row.cells.map(cell => (
-                            <TableCell key={cell.id}>{formatTableCell(cell.value)}</TableCell>
-                          ))}
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
             />
           </div>
         )}

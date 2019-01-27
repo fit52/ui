@@ -90,6 +90,44 @@ export const formatEvents = events => events.map(event => ({
   },
 }));
 
+const formatRecord = record => ({
+  ...record,
+  ageGrade: formatAgeGrade(record.ageGrade),
+  id: record.uuid,
+  runner: {
+    value: (
+      <Link className="bx--link" to={`/runners/${record.uuid}`}>
+        <span>{record.name}</span>
+      </Link>),
+    sortValue: record.name,
+  },
+  eventName: {
+    value: (
+      <Link className="bx--link" to={`/events/${record.event.number}`}>
+        {moment(record.event.date).format('MMMM Do YYYY')}
+      </Link>
+    ),
+    sortValue: moment(record.event.date).valueOf(),
+  },
+  timeString: {
+    value: (
+      <React.Fragment>
+        {moment.duration(record.time).format(runnerTimeFormat)}
+        {record.pb && pbTag}
+      </React.Fragment>
+    ),
+    sortValue: moment.duration(record.time).valueOf(),
+  },
+});
+
+export const formatRecords = records => ({
+  ageGrade: records.ageGrade.map(formatRecord),
+  fastest2kfemale: records.fastest2k.female.map(formatRecord),
+  fastest2kmale: records.fastest2k.male.map(formatRecord),
+  fastest5kfemale: records.fastest5k.female.map(formatRecord),
+  fastest5kmale: records.fastest5k.male.map(formatRecord),
+});
+
 export const sortCellValues = (cellA, cellB, info) => {
   const {
     compare, locale, sortDirection, sortStates,
