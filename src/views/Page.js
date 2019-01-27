@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Spinner from './Spinner';
+import Spinner from '../components/Spinner';
 
 import { getPage } from '../services/api';
 

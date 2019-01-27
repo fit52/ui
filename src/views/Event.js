@@ -7,7 +7,7 @@ import 'react-table/react-table.css';
 
 import { sortCellValues, formatTableCell } from '../services/format';
 import { getEvent } from '../services/api';
-import Spinner from './Spinner';
+import Spinner from '../components/Spinner';
 
 const {
   TableContainer,

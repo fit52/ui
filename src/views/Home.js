@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from './Spinner';
+import Spinner from '../components/Spinner';
 import { getPage } from '../services/api';
 
 export default class Home extends React.Component {

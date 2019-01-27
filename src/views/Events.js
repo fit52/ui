@@ -1,13 +1,11 @@
-import './Runner.scss';
-
 import React from 'react';
-import PropTypes from 'prop-types';
 import { DataTable } from 'carbon-components-react';
-import 'react-table/react-table.css';
-
 import { sortCellValues, formatTableCell } from '../services/format';
-import { getRunner } from '../services/api';
-import Spinner from './Spinner';
+import Spinner from '../components/Spinner';
+
+import { getEvents } from '../services/api';
+
+import './Events.scss';
 
 const {
   TableContainer,
@@ -19,51 +17,35 @@ const {
   TableHeader,
 } = DataTable;
 
-export default class Runner extends React.Component {
-  static propTypes = {
-    match: PropTypes.object.isRequired,
-  }
-
+export default class Events extends React.Component {
   state = {
-    runner: null,
+    events: [],
     loading: true,
   };
 
   columns = [
-    { header: 'Event', key: 'eventName' },
-    { header: 'Position', key: 'pos' },
-    { header: 'Distance (K)', key: 'distance' },
-    { header: 'Time (mm:ss)', key: 'timeString' },
-    { header: 'Age Grade', key: 'ageGradePercent' },
+    { header: 'Event', key: 'name' },
+    { header: '5K Runners', key: 'fivek' },
+    { header: '2K Runners', key: 'twok' },
+    { header: 'First Timers', key: 'firstTimes' },
   ];
 
   componentDidMount() {
-    const { match } = this.props;
-    getRunner(match.params.runnerId)
-      .then(runner => this.setState({ runner, loading: false }));
+    getEvents()
+      .then(events => this.setState({ events, loading: false }));
   }
 
   render() {
-    const { runner, loading } = this.state;
+    const { events, loading } = this.state;
 
     return (
       <div>
         <Spinner loading={loading} />
-        {runner && (
-          <div className="Runner">
-            <h1>{runner.fullname}</h1>
-
-            <section className="Runner-stats">
-              <p>Number of 2K runs: {runner.stats.no2k}</p>
-              <p>Number of 5K runs: {runner.stats.no5k}</p>
-              <p>Number of personal bests: {runner.stats.noPbs}</p>
-              <p>Number of times run: {runner.stats.noTotalEvents}</p>
-            </section>
-
-            <h1>Results</h1>
-
+        {events.length > 0 && (
+          <div className="Events">
+            <h2>Recent events</h2>
             <DataTable
-              rows={runner.eventList}
+              rows={events}
               headers={this.columns}
               sortRow={sortCellValues}
               render={({ rows, headers, getHeaderProps }) => (

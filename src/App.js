@@ -4,11 +4,11 @@ import {
 } from 'react-router-dom';
 import './App.scss';
 
-import Home from './components/Home';
-import Page from './components/Page';
-import Events from './components/Events';
-import Event from './components/Event';
-import Runner from './components/Runner';
+import Home from './views/Home';
+import Page from './views/Page';
+import Events from './views/Events';
+import Event from './views/Event';
+import Runner from './views/Runner';
 
 const App = () => (
   <Router>
