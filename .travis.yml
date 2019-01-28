@@ -9,14 +9,29 @@ script:
   - yarn build
   - yarn lint
   - yarn inject
+# deploy:
+#   on:
+#     branch: master
+#   edge: true
+#   provider: bluemixcloudfoundry
+#   username: $BX_USER
+#   password: $BX_PASS
+#   organization: ajdaniel
+#   space: prod
+#   manifest: Manifest.yml
+#   region: eu-gb
+sudo: true
+env:
+  global:
+  - CF_APP=fit52
+  - CF_API=https://api.eu-gb.bluemix.net
+  - CF_USERNAME=$BX_USER
+  - CF_ORGANIZATION=ajdaniel
+  - CF_SPACE=prod
+  - CF_PASSWORD=$BX_PASS
+before_deploy: npm install -g cf-blue-green
 deploy:
+  provider: script
+  script: cf-blue-green-travis
   on:
     branch: master
-  edge: true
-  provider: bluemixcloudfoundry
-  username: $BX_USER
-  password: $BX_PASS
-  organization: ajdaniel
-  space: prod
-  manifest: Manifest.yml
-  region: eu-gb
