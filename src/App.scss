@@ -90,6 +90,8 @@ $app-width: 900px;
 
 .App .PB-tag {
   margin: 0 0.3rem;
+  text-decoration: none;
+  user-select: none;
 }
 
 .bx--data-table-v2-container {

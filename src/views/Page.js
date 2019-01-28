@@ -6,7 +6,6 @@ import { getPage } from '../services/api';
 
 export default class Page extends React.Component {
   static propTypes = {
-    location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
   }
 
@@ -15,11 +14,14 @@ export default class Page extends React.Component {
     loading: true,
   };
 
-  componentDidMount() {
-    const { location, history } = this.props;
-    getPage(location.pathname.substr('/page/'.length))
-      .then(page => this.setState({ page, loading: false }))
-      .catch(() => history.replace('/404'));
+  async componentDidMount() {
+    const { history, match: { params: { pageTitle } } } = this.props;
+    const page = await getPage(pageTitle);
+    if (page) {
+      this.setState({ page, loading: false });
+    } else {
+      history.replace('/404');
+    }
   }
 
   render() {

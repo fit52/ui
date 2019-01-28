@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
 
-import { getEvent } from '../services/api';
+import { getEvent, getPage } from '../services/api';
 import Spinner from '../components/Spinner';
 import Table from '../components/Table';
 
@@ -14,6 +14,7 @@ export default class Events extends React.Component {
   }
 
   state = {
+    page: null,
     event: null,
     loading: true,
   };
@@ -27,16 +28,14 @@ export default class Events extends React.Component {
     { header: 'Age Grade', key: 'ageGrade' },
   ];
 
-  componentDidMount() {
-    const { match } = this.props;
-    getEvent(match.params.eventId)
-      .then((event) => {
-        this.setState({ event, loading: false });
-      });
+  async componentDidMount() {
+    const { match: { params: { eventId } } } = this.props;
+    const [event, page] = await Promise.all([getEvent(eventId), getPage(`run${eventId}`)]);
+    this.setState({ event, page, loading: false });
   }
 
   render() {
-    const { event, loading } = this.state;
+    const { event, loading, page } = this.state;
 
     return (
       <div>
@@ -47,6 +46,8 @@ export default class Events extends React.Component {
               <BreadcrumbItem href="/events">Events</BreadcrumbItem>
               <BreadcrumbItem href={`/events/${event.number}`}>{event.dateString}</BreadcrumbItem>
             </Breadcrumb>
+
+            {page && <section className="Event-post" dangerouslySetInnerHTML={{ __html: page.content }} />}
 
             <section className="Event-stats">
               <h2>Stats</h2>

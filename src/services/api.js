@@ -13,8 +13,11 @@ export const getPosts = async () => {
 
 export const getPage = async (pageTitle) => {
   const response = await fetch(`/api/site/page/${pageTitle}`);
-  const body = response.json();
-  if (response.status !== 200) {
+  let body = null;
+  if (response.status !== 404) {
+    body = await response.json();
+  }
+  if (response.status !== 200 && response.status !== 404) {
     throw Error(body.message);
   }
   return body;
