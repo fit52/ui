@@ -7,6 +7,7 @@ import { Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
 import { getEvent, getPage } from '../services/api';
 import Spinner from '../components/Spinner';
 import Table from '../components/Table';
+import HeaderImage from '../components/HeaderImage';
 
 export default class Events extends React.Component {
   static propTypes = {
@@ -42,6 +43,7 @@ export default class Events extends React.Component {
         <Spinner loading={loading} />
         {event && (
           <div className="Event">
+            <HeaderImage imageUrl={page.pictureUrl} />
             <Breadcrumb noTrailingSlash className="Event-breadcrumb">
               <BreadcrumbItem href="/events">Events</BreadcrumbItem>
               <BreadcrumbItem href={`/events/${event.number}`}>{event.dateString}</BreadcrumbItem>

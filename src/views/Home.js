@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/Spinner';
+import HeaderImage from '../components/HeaderImage';
 import { getPage } from '../services/api';
 
 export default class Home extends React.Component {
@@ -24,6 +25,7 @@ export default class Home extends React.Component {
         {error}
         {page && (
           <div className="App-post App-page">
+            <HeaderImage imageUrl={page.pictureUrl} />
             <h1>{page.title}</h1>
             <section dangerouslySetInnerHTML={{ __html: page.content }} />
           </div>
