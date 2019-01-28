@@ -43,13 +43,17 @@ export default class Events extends React.Component {
         <Spinner loading={loading} />
         {event && (
           <div className="Event">
-            <HeaderImage imageUrl={page.pictureUrl} />
             <Breadcrumb noTrailingSlash className="Event-breadcrumb">
               <BreadcrumbItem href="/events">Events</BreadcrumbItem>
               <BreadcrumbItem href={`/events/${event.number}`}>{event.dateString}</BreadcrumbItem>
             </Breadcrumb>
 
-            {page && <section className="Event-post" dangerouslySetInnerHTML={{ __html: page.content }} />}
+            {page && (
+              <React.Fragment>
+                <section className="Event-post" dangerouslySetInnerHTML={{ __html: page.content }} />
+                <HeaderImage imageUrl={page.pictureUrl} />
+              </React.Fragment>
+            )}
 
             <section className="Event-stats">
               <h2>Stats</h2>
@@ -58,7 +62,6 @@ export default class Events extends React.Component {
               <p>Number of first time runners: {
                 event.counts.firstTimers || event.counts.firstTimes }
               </p>
-              <p>Number of volunteers: {event.counts.volunteers}</p>
             </section>
 
             <h2>Results</h2>
