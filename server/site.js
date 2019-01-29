@@ -32,10 +32,14 @@ router.get('/posts', async (req, res) => {
 
 router.get('/page/:id', async (req, res) => {
   try {
+    /* eslint-disable camelcase */
+    console.log('Getting page', req.params.id);
     const data = await blog.post({ slug: req.params.id }).get();
-    const { title, content, post_thumbnail: { URL: pictureUrl } } = data;
+    const { title, content, post_thumbnail } = data;
+    const pictureUrl = post_thumbnail ? post_thumbnail.URL : undefined;
     return res.json({ title, content, pictureUrl });
   } catch (e) {
+    console.error(e);
     return res.status(404).json({
       message: 'Page not found',
     });
