@@ -16,7 +16,7 @@ $app-width: 900px;
 .App-inner-header {
   display: flex;
   flex-flow: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   max-width: $app-width;
   margin: 0 auto;
   align-items: center;
