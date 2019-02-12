@@ -25,6 +25,7 @@ export const formatRunner = runnerData => ({
         <React.Fragment>
           {moment.duration(event.time).format(runnerTimeFormat)}
           {event.pb && pbTag}
+          {event.firstEvent && <Tag className="PB-tag" type="ibm" title="First time">FT</Tag>}
         </React.Fragment>
       ),
       sortValue: moment.duration(event.time).valueOf(),
@@ -106,6 +107,7 @@ const formatRecord = record => ({
     value: (
       <Link className="bx--link" to={`/runners/${record.uuid}`}>
         <span>{record.name}</span>
+        {record.firstEvent && <Tag className="PB-tag" type="ibm" title="First time">FT</Tag>}
       </Link>),
     sortValue: record.name,
   },
