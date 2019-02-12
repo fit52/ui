@@ -23,7 +23,6 @@ export default class Events extends React.Component {
   columns = [
     { header: 'Position', key: 'pos' },
     { header: 'Name', key: 'runner' },
-    { header: 'Distance (K)', key: 'distance' },
     { header: 'Times run', key: 'noEvents' },
     { header: 'Time (mm:ss)', key: 'timeString' },
     { header: 'Age Grade', key: 'ageGrade' },
@@ -64,9 +63,15 @@ export default class Events extends React.Component {
               </p>
             </section>
 
-            <h2>Results</h2>
+            <h2>2K Results</h2>
             <Table
-              rows={event.results}
+              rows={event.results2k}
+              headers={this.columns}
+            />
+
+            <h2>5K Results</h2>
+            <Table
+              rows={event.results5k}
               headers={this.columns}
             />
           </div>

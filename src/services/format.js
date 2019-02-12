@@ -45,10 +45,8 @@ export const formatRunner = runnerData => ({
   })).sort((a, b) => (a.eventTime < b.eventTime ? 1 : -1)),
 });
 
-export const formatEvent = eventData => ({
-  ...eventData,
-  dateString: moment(eventData.date).format('MMMM Do YYYY'),
-  results: eventData.results.map(result => ({
+export const formatEvent = (eventData) => {
+  const formatResult = result => ({
     ...result,
     ageGrade: {
       value: formatAgeGrade(result.ageGrade),
@@ -72,8 +70,18 @@ export const formatEvent = eventData => ({
       sortValue: result.name,
     },
     id: result.uuid,
-  })).sort((a, b) => (a.name < b.name ? -1 : 1)),
-});
+  });
+
+  const results2k = eventData.results.filter(result => result.distance === 2).map(formatResult);
+  const results5k = eventData.results.filter(result => result.distance === 5).map(formatResult);
+
+  return {
+    ...eventData,
+    dateString: moment(eventData.date).format('MMMM Do YYYY'),
+    results2k,
+    results5k,
+  };
+};
 
 export const formatEvents = events => events.map(event => ({
   ...event,
