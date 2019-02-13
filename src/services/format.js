@@ -47,8 +47,9 @@ export const formatRunner = runnerData => ({
 });
 
 export const formatEvent = (eventData) => {
-  const formatResult = result => ({
+  const formatResult = (result, index) => ({
     ...result,
+    pos: index + 1,
     ageGrade: {
       value: formatAgeGrade(result.ageGrade),
       sortValue: result.ageGrade,
@@ -73,8 +74,9 @@ export const formatEvent = (eventData) => {
     id: result.uuid,
   });
 
-  const results2k = eventData.results.filter(result => result.distance === 2).map(formatResult);
-  const results5k = eventData.results.filter(result => result.distance === 5).map(formatResult);
+  const allResults = eventData.results.sort((a, b) => a.pos - b.pos);
+  const results2k = allResults.filter(result => result.distance === 2).map(formatResult);
+  const results5k = allResults.filter(result => result.distance === 5).map(formatResult);
 
   return {
     ...eventData,

@@ -3,6 +3,7 @@ import './Event.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
+import cloneDeep from 'lodash.clonedeep';
 
 import { getEvent, getPage } from '../services/api';
 import Spinner from '../components/Spinner';
@@ -22,15 +23,21 @@ export default class Events extends React.Component {
 
   columns = [
     { header: 'Position', key: 'pos' },
-    { header: 'Name', key: 'runner' },
+    { header: 'Runner', key: 'runner' },
     { header: 'Times run', key: 'noEvents' },
     { header: 'Time (mm:ss)', key: 'timeString' },
     { header: 'Age Grade', key: 'ageGrade' },
   ];
 
+  columns2k = cloneDeep(this.columns);
+
+  columns5k = cloneDeep(this.columns);
+
   async componentDidMount() {
     const { match: { params: { eventId } } } = this.props;
     const [event, page] = await Promise.all([getEvent(eventId), getPage(`run${eventId}`)]);
+    this.columns2k[1].header = `Runner (${event.results2k.length})`;
+    this.columns5k[1].header = `Runner (${event.results5k.length})`;
     this.setState({ event, page, loading: false });
   }
 
@@ -54,25 +61,16 @@ export default class Events extends React.Component {
               </React.Fragment>
             )}
 
-            <section className="Event-stats">
-              <h2>Stats</h2>
-              <p>Number of 2K runners: {event.counts.twok}</p>
-              <p>Number of 5K runners: {event.counts.fivek}</p>
-              <p>Number of first time runners: {
-                event.counts.firstTimers || event.counts.firstTimes }
-              </p>
-            </section>
-
             <h2>2K Results</h2>
             <Table
               rows={event.results2k}
-              headers={this.columns}
+              headers={this.columns2k}
             />
 
             <h2>5K Results</h2>
             <Table
               rows={event.results5k}
-              headers={this.columns}
+              headers={this.columns5k}
             />
           </div>
         )}
