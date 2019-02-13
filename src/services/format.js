@@ -90,7 +90,7 @@ export const formatEvents = events => events.map(event => ({
   ...event,
   ...event.counts,
   firstTimes: event.counts.firstTimers || event.counts.firstTimes,
-  id: event.number,
+  id: event.number.toString(),
   name: {
     value: (
       <Link className="bx--link" to={`/events/${event.number}`}>

@@ -33,8 +33,15 @@ $app-width: 900px;
   background-position: left center;
 }
 
-.App-links a:not(:last-child) {
-  margin-right: 1rem;
+.App-links {
+
+  a {
+    text-decoration: none;
+  }
+
+  a:not(:last-child) {
+    margin-right: 1rem;
+  }
 }
 
 .App-intro {

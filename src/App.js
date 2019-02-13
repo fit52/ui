@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter as Router, Route, Switch, Link,
+  BrowserRouter as Router, Route, Switch, Link, NavLink,
 } from 'react-router-dom';
 import './App.scss';
 
@@ -11,18 +11,23 @@ import Event from './views/Event';
 import Runner from './views/Runner';
 import Records from './views/Records';
 
+const linkProps = {
+  className: 'bx--link',
+  activeClassName: 'bx--tabs__nav-item--selected',
+};
+
 const App = () => (
   <Router>
     <div className="App">
       <header className="App-header">
         <div className="App-inner-header">
           <div className="App-image" />
-          <p className="App-links">
-            <Link className="bx--link" to="/">Home</Link>
-            <Link className="bx--link" to="/page/about">About</Link>
-            <Link className="bx--link" to="/events">Events</Link>
-            <Link className="bx--link" to="/records">Records</Link>
-          </p>
+          <nav className="App-links">
+            <NavLink {...linkProps} exact to="/">Home</NavLink>
+            <NavLink {...linkProps} to="/page/about">About</NavLink>
+            <NavLink {...linkProps} to="/events">Events</NavLink>
+            <NavLink {...linkProps} to="/records">Records</NavLink>
+          </nav>
         </div>
       </header>
       <div className="App-banner" />
