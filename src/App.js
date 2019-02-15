@@ -34,6 +34,16 @@ const App = () => (
       <div className="App-body">
         <section className="App-content">
           <Switch>
+            <Route
+              path="/"
+              render={({ location }) => {
+                if (typeof window.ga === 'function') {
+                  window.ga('set', 'page', location.pathname + location.search);
+                  window.ga('send', 'pageview');
+                }
+                return null;
+              }}
+            />
             <Route exact path="/" component={Home} />
             <Route exact path="/page/:pageTitle" component={Page} />
             <Route exact path="/events" component={Events} />
