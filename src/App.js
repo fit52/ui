@@ -33,17 +33,17 @@ const App = () => (
       <div className="App-banner" />
       <div className="App-body">
         <section className="App-content">
+          <Route
+            path="/"
+            render={({ location }) => {
+              if (process.env.NODE_ENV !== 'development' && typeof window.ga === 'function') {
+                window.ga('set', 'page', location.pathname + location.search);
+                window.ga('send', 'pageview');
+              }
+              return null;
+            }}
+          />
           <Switch>
-            <Route
-              path="/"
-              render={({ location }) => {
-                if (typeof window.ga === 'function') {
-                  window.ga('set', 'page', location.pathname + location.search);
-                  window.ga('send', 'pageview');
-                }
-                return null;
-              }}
-            />
             <Route exact path="/" component={Home} />
             <Route exact path="/page/:pageTitle" component={Page} />
             <Route exact path="/events" component={Events} />
