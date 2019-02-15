@@ -36,9 +36,10 @@ const App = () => (
           <Route
             path="/"
             render={({ location }) => {
-              if (process.env.NODE_ENV !== 'development' && typeof window.ga === 'function') {
-                window.ga('set', 'page', location.pathname + location.search);
-                window.ga('send', 'pageview');
+              if (process.env.NODE_ENV !== 'development' && typeof window.gtag === 'function') {
+                window.gtag('config', 'UA-134643177-1', {
+                  page_path: location.pathname,
+                });
               }
               return null;
             }}
