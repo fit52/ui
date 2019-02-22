@@ -2,6 +2,7 @@ import './Runner.scss';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
 import { getRunner } from '../services/api';
 import Spinner from '../components/Spinner';
 import Table from '../components/Table';
@@ -38,6 +39,12 @@ export default class Runner extends React.Component {
         <Spinner loading={loading} />
         {runner && (
           <div className="Runner">
+
+            <Breadcrumb noTrailingSlash className="Runner-breadcrumb">
+              <BreadcrumbItem href="/runners">Runners</BreadcrumbItem>
+              <BreadcrumbItem href={`/runners/${runner.uuid}`}>{runner.fullname}</BreadcrumbItem>
+            </Breadcrumb>
+
             <h1>{runner.fullname}</h1>
 
             <section className="Runner-stats">

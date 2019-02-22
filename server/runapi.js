@@ -34,14 +34,14 @@ router.get('/global', async (req, res) => {
 For this search string to work, make sure the database has this search index:
 
 {
-   "index": {
-      "fields": [
-         "number",
-         "_id"
-      ]
-   },
-   "name": "event-index",
-   "type": "json"
+  "index": {
+    "fields": [
+      "number",
+      "_id"
+    ]
+  },
+  "name": "event-index",
+  "type": "json"
 }
 */
 
@@ -72,7 +72,7 @@ router.get('/events', async (req, res) => {
       ...event,
     })));
 
-    data = await cache.get(`events${maxEvents}`, findFunc);
+    data = await cache.get(`events${maxEvents}${offsetEvents}`, findFunc);
   } catch (e) {
     console.error(e);
     return res.status(404).send();
@@ -91,7 +91,6 @@ router.get('/events/:id', async (req, res) => {
   let data;
 
   try {
-    // data = await db.get(`event/${id}`);
     const eventId = `event/${id}`;
     const getEvent = () => db.get(eventId);
     data = await cache.get(eventId, getEvent);
@@ -109,14 +108,63 @@ For this search string to work, make sure the database has this search index:
 {
    "index": {
       "fields": [
-         "uuid",
-         "_id"
+         {
+            "name": "_id",
+            "type": "string"
+         },
+         {
+            "name": "fullname",
+            "type": "string"
+         },
+         {
+            "name": "uuid",
+            "type": "string"
+         }
       ]
    },
-   "name": "event-index",
-   "type": "json"
+   "name": "runner-text",
+   "type": "text"
 }
 */
+
+/*
+For this list to work, create view runnerView with runner-index with this reduce map
+"runner-index": {
+  "map": "function (doc) {\n  if(doc.fullname) {\n    emit(doc.fullname, doc.uuid);\n  }\n}"
+}
+*/
+
+router.get('/runners', async (req, res) => {
+  const { limit = '20', offset = '0' } = req.query;
+  const maxRunners = parseInt(limit, 10);
+  const offsetRunners = parseInt(offset, 10);
+  let data;
+
+  try {
+    const getRunnersFunc = () => db.view('runnerView', 'runner-index', {
+      limit: maxRunners,
+      skip: offsetRunners,
+    });
+
+    data = await cache.get(`runners${maxRunners}${offsetRunners}`, getRunnersFunc);
+  } catch (e) {
+    console.error(e);
+    return res.status(404).send();
+  }
+
+  const runners = data.rows.map(runner => ({
+    _id: runner.id,
+    uuid: runner.value,
+    fullname: runner.key,
+  })).sort((a, b) => (a.fullname < b.fullname ? -1 : 1));
+
+  return res.json({
+    runners,
+    offset: data.offset,
+    limit: maxRunners,
+    total: data.total_rows,
+  });
+});
 
 router.get('/runners/:id', async (req, res) => {
   const { id } = req.params;

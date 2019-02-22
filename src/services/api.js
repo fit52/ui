@@ -1,6 +1,4 @@
-import {
-  formatRunner, formatEvent, formatEvents, formatRecords,
-} from './format';
+import * as format from './format';
 
 export const getPosts = async () => {
   const response = await fetch('/api/site/posts');
@@ -29,7 +27,7 @@ export const getEvents = async (limit = 50, offset = 0) => {
   if (response.status !== 200) {
     throw Error(body.message);
   }
-  return formatEvents(body.events);
+  return format.formatEvents(body.events);
 };
 
 export const getEvent = async (id) => {
@@ -41,7 +39,19 @@ export const getEvent = async (id) => {
   if (response.status !== 200) {
     throw Error(body.message);
   }
-  return formatEvent(body);
+  return format.formatEvent(body);
+};
+
+export const getRunners = async (limit = 30, offset = 0) => {
+  const response = await fetch(`/api/run/runners?limit=${limit}&offset=${offset}`);
+  const body = await response.json();
+  if (response.status !== 200) {
+    throw Error(body.message);
+  }
+  return {
+    ...body,
+    runners: body.runners.map(format.formatRunners),
+  };
 };
 
 export const getRunner = async (id) => {
@@ -53,7 +63,7 @@ export const getRunner = async (id) => {
   if (response.status !== 200) {
     throw Error(body.message);
   }
-  return formatRunner(body);
+  return format.formatRunner(body);
 };
 
 export const getRecords = async () => {
@@ -62,6 +72,6 @@ export const getRecords = async () => {
   if (response.status !== 200) {
     throw Error(body.message);
   }
-  const records = formatRecords(body);
+  const records = format.formatRecords(body);
   return records;
 };

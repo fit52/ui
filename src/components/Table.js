@@ -13,23 +13,28 @@ const {
   TableHeader,
 } = DataTable;
 
-const Table = ({ rows, headers }) => (
+const Table = ({
+  rows, headers, className, showHead = true, ...otherProps
+}) => (
   <DataTable
+    {...otherProps}
     rows={rows}
     headers={headers}
     sortRow={sortCellValues}
     render={({ rows: tableRows, headers: tableHeaders, getHeaderProps }) => (
-      <TableContainer>
+      <TableContainer className={className}>
         <CarbonTable>
-          <TableHead>
-            <TableRow>
-              {tableHeaders.map(header => (
-                <TableHeader {...getHeaderProps({ header })}>
-                  {header.header}
-                </TableHeader>
-              ))}
-            </TableRow>
-          </TableHead>
+          {showHead && (
+            <TableHead>
+              <TableRow>
+                {tableHeaders.map(header => (
+                  <TableHeader {...getHeaderProps({ header })}>
+                    {header.header}
+                  </TableHeader>
+                ))}
+              </TableRow>
+            </TableHead>
+          )}
           <TableBody>
             {tableRows.map(row => (
               <TableRow key={row.id}>

@@ -39,4 +39,11 @@ export const formatRunner = runnerData => ({
   })).sort((a, b) => (a.eventTime < b.eventTime ? 1 : -1)),
 });
 
-export const formatRunners = runnersData => runnersData;
+export const formatRunners = runner => ({
+  ...runner,
+  id: runner.uuid,
+  name: {
+    value: <Link className="bx--link" to={`/runners/${runner.uuid}`}>{runner.fullname}</Link>,
+    sortValue: runner.fullname,
+  },
+});

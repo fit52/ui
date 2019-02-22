@@ -10,6 +10,7 @@ import Events from './views/Events';
 import Event from './views/Event';
 import Runner from './views/Runner';
 import Records from './views/Records';
+import Runners from './views/Runners';
 
 const linkProps = {
   className: 'bx--link',
@@ -25,6 +26,7 @@ const App = () => (
           <nav className="App-links">
             <NavLink {...linkProps} exact to="/">Home</NavLink>
             <NavLink {...linkProps} to="/page/about">About</NavLink>
+            <NavLink {...linkProps} to="/runners">Runners</NavLink>
             <NavLink {...linkProps} to="/events">Events</NavLink>
             <NavLink {...linkProps} to="/records">Records</NavLink>
           </nav>
@@ -50,6 +52,7 @@ const App = () => (
             <Route exact path="/events" component={Events} />
             <Route exact path="/records" component={Records} />
             <Route exact path="/events/:eventId" component={Event} />
+            <Route exact path="/runners" component={Runners} />
             <Route exact path="/runners/:runnerId" component={Runner} />
             <Route exact>
               <React.Fragment>
