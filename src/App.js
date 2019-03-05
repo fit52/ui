@@ -22,7 +22,7 @@ const App = () => (
     <div className="App">
       <header className="App-header">
         <div className="App-inner-header">
-          <div className="App-image" />
+          <Link to="/" className="App-image" title="Home" />
           <nav className="App-links">
             <NavLink {...linkProps} exact to="/">Home</NavLink>
             <NavLink {...linkProps} to="/page/about">About</NavLink>
