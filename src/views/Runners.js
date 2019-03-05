@@ -19,6 +19,13 @@ export default class Runners extends React.Component {
 
   columns = [
     { header: 'Runner', key: 'name' },
+    { header: '2K', key: 'no2k' },
+    { header: '5K', key: 'no5k' },
+    { header: 'Total', key: 'total' },
+    { header: '2K PB', key: 'pb2k' },
+    { header: '5K PB', key: 'pb5k' },
+    { header: '#PBs', key: 'noPbs' },
+    { header: 'Best AG', key: 'ageGrade' },
   ];
 
   componentDidMount() {
@@ -44,15 +51,7 @@ export default class Runners extends React.Component {
         {runnerData.runners && (
           <div className="Runners">
             <h2>All runners</h2>
-            <PaginationV2
-              page={page}
-              totalItems={runnerData.total}
-              pageSize={PAGE_SIZE}
-              onChange={this.onPaginationChange}
-              pageSizes={[PAGE_SIZE]}
-            />
             <Table
-              showHead={false}
               className="Runners-table"
               rows={runnerData.runners}
               headers={this.columns}

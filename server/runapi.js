@@ -144,6 +144,7 @@ router.get('/runners', async (req, res) => {
     const getRunnersFunc = () => db.view('runnerView', 'runner-index', {
       limit: maxRunners,
       skip: offsetRunners,
+      include_docs: true,
     });
 
     data = await cache.get(`runners${maxRunners}${offsetRunners}`, getRunnersFunc);
@@ -152,10 +153,10 @@ router.get('/runners', async (req, res) => {
     return res.status(404).send();
   }
 
-  const runners = data.rows.map(runner => ({
-    _id: runner.id,
-    uuid: runner.value,
-    fullname: runner.key,
+  const runners = data.rows.map(({ doc }) => ({
+    uuid: doc.uuid,
+    fullname: doc.fullname,
+    stats: doc.stats,
   })).sort((a, b) => (a.fullname < b.fullname ? -1 : 1));
 
   return res.json({
