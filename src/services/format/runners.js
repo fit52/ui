@@ -59,8 +59,8 @@ export const formatRunners = runner => ({
     value: moment.duration(runner.stats.records5k.fastest.time).format(runnerTimeFormat),
     sortValue: moment.duration(runner.stats.records5k.fastest.time).valueOf(),
   } : '',
-  ageGrade: {
+  ageGrade: has(runner, 'stats.recordsAgeGrade.best.ageGrade') ? {
     value: formatAgeGrade(runner.stats.recordsAgeGrade.best.ageGrade),
     sortValue: parseFloat(normaliseAgeGrade(runner.stats.recordsAgeGrade.best.ageGrade)),
-  },
+  } : '',
 });

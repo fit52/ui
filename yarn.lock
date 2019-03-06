@@ -858,17 +858,17 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@carbon/icon-helpers@0.0.1-alpha.24":
-  version "0.0.1-alpha.24"
-  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-0.0.1-alpha.24.tgz#b2960d18db35aa5436125ffc968786e5210ba09d"
-  integrity sha512-913lZN8mkpSbEjfryetAemMdpg+cw3Io6VSGECEnGRZNopaDk16Xiq2rZlUR23du5gnvnPceBLDv8aux5MAxpA==
+"@carbon/icon-helpers@0.0.1-alpha.32":
+  version "0.0.1-alpha.32"
+  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-0.0.1-alpha.32.tgz#6bb291b574ebd49784fec4c8751245840aedb80c"
+  integrity sha512-Mx7Uttbv4MvG6V1mBayrM5qivqAamZZp+F3AQvSyngTFIDanCjBzaseqKWYBIT3zAbAQvzpjShDlo9xZgPQ9Xg==
 
-"@carbon/icons-react@^0.0.1-alpha.20":
-  version "0.0.1-alpha.24"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-0.0.1-alpha.24.tgz#1bf2743c65175bf69738561ada3799b090661c4b"
-  integrity sha512-zXv8W/ILgge/Mn3mbrtcznSxhWt9+IelYYs+04VKPbS02CL5Fqf6W5WQYBa4OXFYvWzCAlFWDzST5RjGtmBjtQ==
+"@carbon/icons-react@^0.0.1-alpha.32":
+  version "0.0.1-alpha.32"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-0.0.1-alpha.32.tgz#8e507d231399e4197e2868c6c215e3bba74f226a"
+  integrity sha512-PO96imAfYa4O+ckMLu7VRK6SOZgkM0nwPbz0KAIXPWsDuAH+hP9OIUYHjRbzLXunzwHGGGygXNAxmMIFSLzUOg==
   dependencies:
-    "@carbon/icon-helpers" "0.0.1-alpha.24"
+    "@carbon/icon-helpers" "0.0.1-alpha.32"
     prop-types "^15.6.2"
 
 "@cloudant/cloudant@^3.0.0":
@@ -2307,19 +2307,20 @@ capture-exit@^1.2.0:
   dependencies:
     rsvp "^3.3.3"
 
-carbon-components-react@^6.59.0:
-  version "6.59.0"
-  resolved "https://registry.yarnpkg.com/carbon-components-react/-/carbon-components-react-6.59.0.tgz#b636c50704dc26c28c19a4ccac3154baf768b437"
-  integrity sha512-2FRXH7Uhbl4eKnFepo2OMimxz/H0/TF4EFFVELVCs64F6FuA2K3V9Lg0q8U1iP3jLh2GrCTUFwAj+REUC8ih/Q==
+carbon-components-react@^6.101.0:
+  version "6.101.0"
+  resolved "https://registry.yarnpkg.com/carbon-components-react/-/carbon-components-react-6.101.0.tgz#db59d11dfacf9cbde9a594b48cb18c439f3ec815"
+  integrity sha512-9ra0HHwQGoHApqER5JTp7LJ1rlKkJgoMDEdop8GVcGmZokDsJuGTMsTtboJ4ERUiTOcHsUV2t28+AHwuUVbeZQ==
   dependencies:
-    "@carbon/icons-react" "^0.0.1-alpha.20"
+    "@carbon/icons-react" "^0.0.1-alpha.32"
     classnames "2.2.6"
     downshift "^1.31.14"
-    flatpickr "4.5.1"
+    flatpickr "4.5.5"
     invariant "^2.2.3"
     lodash.debounce "^4.0.8"
     lodash.isequal "^4.5.0"
     lodash.omit "^4.5.0"
+    react-is "^16.8.2"
     warning "^3.0.0"
     window-or-global "^1.0.1"
 
@@ -4276,15 +4277,15 @@ flat-cache@^1.2.1:
     rimraf "~2.6.2"
     write "^0.2.1"
 
-flatpickr@4.5.1:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.1.tgz#f65eaf54c07538f87d6f68a67b03cf816d7fb82f"
-  integrity sha512-dsLTFmRg6mlqYfJ35A7gLlbq+8fOqRty3cWncl6rwU4pMe//i0WKxKLVyBbSYAZry93Lg+yqsOph9haltcxCqQ==
-
 flatpickr@4.5.2:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.2.tgz#47c8ad472a096e5fb7e74b809b0703535383f20d"
   integrity sha512-jDy4QYGpmiy7+Qk8QvKJ4spjDdxcx9cxMydmq1x427HkKWBw0qizLYeYM2F6tMcvvqGjU5VpJS55j4LnsaBblA==
+
+flatpickr@4.5.5:
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.5.tgz#b138050654932f4cf667897d00b51bb930bf392e"
+  integrity sha512-KgAJxBN1BWiOAkwvFSM/nS9YFESOh1yI7uQEd/HQqcTGev84ADO2Mx8C3bUKgIULscb+LireiSDe5D9fh3PFtQ==
 
 flatten@^1.0.2:
   version "1.0.2"
@@ -8719,6 +8720,11 @@ react-icons@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.2.2.tgz#7b1dc795004a119a35175e62ecef91e5c9c90962"
   integrity sha512-0DiXTcECUNoMvze2zcFwYYrHAFgQ2rBM0+HIHfaECKRfE1NZYwfuUSbwyg9s1uVPuy7o/KqQKSwBGMWQFvdrhQ==
+
+react-is@^16.8.2:
+  version "16.8.4"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.4.tgz#90f336a68c3a29a096a3d648ab80e87ec61482a2"
+  integrity sha512-PVadd+WaUDOAciICm/J1waJaSvgq+4rHE/K70j0PFqKhkTBsPv/82UGQJNXAngz1fOQLLxI6z1sEDmJDQhCTAA==
 
 react-router-dom@^4.2.2:
   version "4.3.1"
