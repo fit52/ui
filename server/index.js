@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
@@ -8,10 +9,7 @@ const cors = require('cors');
 
 require('dotenv').config();
 
-app.use(cors());
-app.use(helmet());
-app.use(morgan('dev'));
-
+app.use(cors(), helmet(), morgan('dev'), compression());
 app.use('/api/site', require('./site'));
 app.use('/api/run', require('./runapi'));
 
@@ -21,7 +19,7 @@ if (process.env.NODE_ENV !== 'development') {
   const buildPath = path.join(__dirname, '../build');
   console.log(`Serving the static files via express on ${buildPath}`);
   app.use(express.static(buildPath));
-  app.use('*', helmet.noCache(), (req, res) => {
+  app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../build/index.html'));
   });
 }
