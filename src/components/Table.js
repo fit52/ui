@@ -14,7 +14,7 @@ const {
 } = DataTable;
 
 const Table = ({
-  rows, headers, className, showHead = true, ...otherProps
+  rows, headers, className, ...otherProps
 }) => (
   <DataTable
     {...otherProps}
@@ -24,17 +24,15 @@ const Table = ({
     render={({ rows: tableRows, headers: tableHeaders, getHeaderProps }) => (
       <TableContainer className={className}>
         <CarbonTable>
-          {showHead && (
-            <TableHead>
-              <TableRow>
-                {tableHeaders.map(header => (
-                  <TableHeader {...getHeaderProps({ header })}>
-                    {header.header}
-                  </TableHeader>
-                ))}
-              </TableRow>
-            </TableHead>
-          )}
+          <TableHead>
+            <TableRow>
+              {tableHeaders.map(header => (
+                <TableHeader {...getHeaderProps({ header })}>
+                  {header.header}
+                </TableHeader>
+              ))}
+            </TableRow>
+          </TableHead>
           <TableBody>
             {tableRows.map(row => (
               <TableRow key={row.id}>
@@ -53,6 +51,11 @@ const Table = ({
 Table.propTypes = {
   rows: PropTypes.array.isRequired,
   headers: PropTypes.array.isRequired,
+  className: PropTypes.string,
+};
+
+Table.defaultProps = {
+  className: '',
 };
 
 export default Table;

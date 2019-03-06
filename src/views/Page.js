@@ -1,12 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { history as historyType, match as matchType } from 'react-router-prop-types';
 import Spinner from '../components/Spinner';
 
 import { getPage } from '../services/api';
 
 export default class Page extends React.Component {
   static propTypes = {
-    history: PropTypes.object.isRequired,
+    history: historyType.isRequired,
+    match: matchType.isRequired,
   }
 
   state = {
