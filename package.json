@@ -35,7 +35,7 @@
     "start": "node server/index.js",
     "inject": "node scripts/injectVars.js",
     "dev": "concurrently --kill-others-on-fail \"NODE_ENV=development yarn start\" \"yarn start:dev\"",
-    "dev:win": "concurrently --kill-others-on-fail \"SET NODE_ENV=development&& yarn start\" \"yarn start:dev\""
+    "dev:win": "concurrently --kill-others-on-fail \"SET NODE_ENV=development && yarn start\" \"yarn start:dev\""
   },
   "husky": {
     "hooks": {

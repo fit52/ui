@@ -65,7 +65,10 @@ const App = () => (
       </div>
       <footer className="App-footer">
         <div className="App-inner-footer">
-          <span>Copyright Andrew Daniel 2019. Photo by Tomasz Woźniak on Unsplash</span>
+          <span>
+            Copyright Andrew Daniel 2019. Photo by Tomasz Woźniak on Unsplash. 
+            Cookies are used for analytics purposes.
+          </span>
         </div>
       </footer>
     </div>

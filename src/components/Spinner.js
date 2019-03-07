@@ -2,14 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Loading } from 'carbon-components-react';
 
-import './spinner.css';
-
 export default function Spinner({ loading }) {
   return (
     <div className="Spinner">
-      <Loading
-        active={loading}
-      />
+      <Loading active={loading} />
     </div>
   );
 }
