@@ -1,0 +1,27 @@
+{
+  "projectName": "ui",
+  "projectOwner": "fit52",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "ajdaniel",
+      "name": "Andrew Daniel",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/867941?v=4",
+      "profile": "http://www.andrewdaniel.co.uk",
+      "contributions": [
+        "bug",
+        "code",
+        "design",
+        "content",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
