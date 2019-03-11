@@ -21,6 +21,17 @@
         "content",
         "ideas"
       ]
+    },
+    {
+      "login": "markvardy",
+      "name": "Mark Vardy",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/16669769?v=4",
+      "profile": "https://github.com/markvardy",
+      "contributions": [
+        "ideas",
+        "bug",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
