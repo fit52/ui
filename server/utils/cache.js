@@ -11,6 +11,10 @@ class Cache {
     });
   }
 
+  async invalidate(key) {
+    await this.cache.del(key);
+  }
+
   async get(key, dbFunc) {
     const cacheValue = this.cache.get(key);
     if (cacheValue) {

@@ -25,10 +25,15 @@ router.get('/posts', async (req, res) => {
 });
 
 router.get('/page/:id', async (req, res) => {
+  const { id } = req.params;
+  const key = `Page_${id}`;
+  if (req.query.invalidateCache) {
+    console.log(`Invalidating cache ${key}`);
+    cache.invalidate(key);
+  }
   try {
     /* eslint-disable camelcase */
-    const { id } = req.params;
-    const data = await cache.get(`Page_${id}`, () => blog.post({ slug: id }).get());
+    const data = await cache.get(key, () => blog.post({ slug: id }).get());
     const { title, content, post_thumbnail } = data;
     const pictureUrl = post_thumbnail ? post_thumbnail.URL : undefined;
     return res.json({ title, content, pictureUrl });
