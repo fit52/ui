@@ -24,7 +24,7 @@ export default class Home extends React.Component {
         <Spinner loading={loading} />
         {error}
         {page && (
-          <div className="App-post App-page">
+          <div className="App-post App-page wp-content">
             <HeaderImage imageUrl={page.pictureUrl} />
             <h1>{page.title}</h1>
             <section dangerouslySetInnerHTML={{ __html: page.content }} />

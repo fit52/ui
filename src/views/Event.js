@@ -56,7 +56,7 @@ export default class Events extends React.Component {
 
             {page && (
               <React.Fragment>
-                <section className="Event-post" dangerouslySetInnerHTML={{ __html: page.content }} />
+                <section className="Event-post wp-content" dangerouslySetInnerHTML={{ __html: page.content }} />
                 <HeaderImage imageUrl={page.pictureUrl} />
               </React.Fragment>
             )}

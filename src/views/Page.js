@@ -32,7 +32,7 @@ export default class Page extends React.Component {
       <div>
         <Spinner loading={loading} />
         {page && (
-          <div className="App-post App-page">
+          <div className="App-post App-page wp-content">
             <h1>{page.title}</h1>
             <section dangerouslySetInnerHTML={{ __html: page.content }} />
           </div>
