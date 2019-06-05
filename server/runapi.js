@@ -8,6 +8,7 @@ const Cache = require('./utils/cache');
 
 const router = express.Router();
 router.use(bodyParser.json());
+moment.locale('en');
 
 let db;
 const cache = new Cache();
