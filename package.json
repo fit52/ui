@@ -6,7 +6,7 @@
   "bugs": "https://github.com/fit52/ui/issues",
   "proxy": "http://localhost:3001/",
   "engines": {
-    "node": "^11.2.0",
+    "node": "^11.5.0",
     "npm": "6.9.0"
   },
   "dependencies": {

@@ -51,12 +51,13 @@ export const formatEvent = (eventData) => {
 export const formatEvents = events => events.map(event => ({
   ...event,
   ...event.counts,
+  title: moment(event.date).format('MMMM Do YYYY'),
   firstTimes: event.counts.firstTimers || event.counts.firstTimes,
   id: event.number.toString(),
   name: {
     value: (
       <Link className="bx--link" to={`/events/${event.number}`}>
-        <span>{event.title}</span>
+        <span>{moment(event.date).format('MMMM Do YYYY')}</span>
       </Link>
     ),
     sortValue: moment(event.date).valueOf(),

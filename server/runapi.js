@@ -2,13 +2,11 @@ const Cloudant = require('@cloudant/cloudant');
 const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('config');
-const moment = require('moment');
 
 const Cache = require('./utils/cache');
 
 const router = express.Router();
 router.use(bodyParser.json());
-moment.locale('en');
 
 let db;
 const cache = new Cache();
@@ -68,10 +66,7 @@ router.get('/events', async (req, res) => {
       sort: [{ number: 'desc' }],
       limit: maxEvents,
       skip: offsetEvents,
-    }).then(({ docs }) => docs.map(event => ({
-      title: moment(event.date).format('MMMM Do YYYY'),
-      ...event,
-    })));
+    }).then(({ docs }) => docs);
 
     data = await cache.get(`events${maxEvents}${offsetEvents}`, findFunc);
   } catch (e) {
