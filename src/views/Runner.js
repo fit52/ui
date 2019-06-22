@@ -1,68 +1,65 @@
 import './Runner.scss';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
 import { getRunner } from '../services/api';
 import Spinner from '../components/Spinner';
 import Table from '../components/Table';
 
-export default class Runner extends React.Component {
-  static propTypes = {
-    match: PropTypes.object.isRequired,
-  }
+const COLUMNS = [
+  { header: 'Event', key: 'eventName' },
+  { header: 'Position', key: 'pos' },
+  { header: 'Distance (K)', key: 'distance' },
+  { header: 'Time (mm:ss)', key: 'timeString' },
+  { header: 'Age Grade', key: 'ageGradePercent' },
+];
 
-  state = {
-    runner: null,
-    loading: true,
-  };
+const Runner = ({
+  match: {
+    params: { runnerId },
+  },
+}) => {
+  const [runner, setRunner] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  columns = [
-    { header: 'Event', key: 'eventName' },
-    { header: 'Position', key: 'pos' },
-    { header: 'Distance (K)', key: 'distance' },
-    { header: 'Time (mm:ss)', key: 'timeString' },
-    { header: 'Age Grade', key: 'ageGradePercent' },
-  ];
+  useEffect(() => {
+    getRunner(runnerId).then(runnerData => {
+      setRunner(runnerData);
+      setLoading(false);
+    });
+  }, [runnerId]);
 
-  componentDidMount() {
-    const { match } = this.props;
-    getRunner(match.params.runnerId)
-      .then(runner => this.setState({ runner, loading: false }));
-  }
+  return (
+    <div>
+      <Spinner loading={loading} />
+      {runner && (
+        <div className="Runner">
+          <Breadcrumb noTrailingSlash className="Runner-breadcrumb">
+            <BreadcrumbItem href="/runners">Runners</BreadcrumbItem>
+            <BreadcrumbItem href={`/runners/${runner.uuid}`}>{runner.fullname}</BreadcrumbItem>
+          </Breadcrumb>
 
-  render() {
-    const { runner, loading } = this.state;
+          <h1>{runner.fullname}</h1>
 
-    return (
-      <div>
-        <Spinner loading={loading} />
-        {runner && (
-          <div className="Runner">
+          <section className="Runner-stats">
+            <p>Number of 2K runs: {runner.stats.no2k}</p>
+            <p>Number of 5K runs: {runner.stats.no5k}</p>
+            <p>Number of personal bests: {runner.stats.noPbs}</p>
+            <p>Number of times run: {runner.stats.noTotalEvents}</p>
+          </section>
 
-            <Breadcrumb noTrailingSlash className="Runner-breadcrumb">
-              <BreadcrumbItem href="/runners">Runners</BreadcrumbItem>
-              <BreadcrumbItem href={`/runners/${runner.uuid}`}>{runner.fullname}</BreadcrumbItem>
-            </Breadcrumb>
+          <h1>Results</h1>
 
-            <h1>{runner.fullname}</h1>
+          <Table rows={runner.eventList} headers={COLUMNS} />
+        </div>
+      )}
+    </div>
+  );
+};
 
-            <section className="Runner-stats">
-              <p>Number of 2K runs: {runner.stats.no2k}</p>
-              <p>Number of 5K runs: {runner.stats.no5k}</p>
-              <p>Number of personal bests: {runner.stats.noPbs}</p>
-              <p>Number of times run: {runner.stats.noTotalEvents}</p>
-            </section>
+Runner.propTypes = {
+  match: PropTypes.object.isRequired,
+};
 
-            <h1>Results</h1>
-
-            <Table
-              rows={runner.eventList}
-              headers={this.columns}
-            />
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+export default Runner;

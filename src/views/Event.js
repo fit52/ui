@@ -1,80 +1,83 @@
 import './Event.scss';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
-import cloneDeep from 'lodash.clonedeep';
 
 import { getEvent, getPage } from '../services/api';
 import Spinner from '../components/Spinner';
 import Table from '../components/Table';
 import HeaderImage from '../components/HeaderImage';
 
-export default class Events extends React.Component {
-  static propTypes = {
-    match: PropTypes.object.isRequired,
-  }
+const baseColumns = [
+  { header: 'Position', key: 'pos' },
+  { header: 'Runner', key: 'runner' },
+  { header: 'Times run', key: 'noEvents' },
+  { header: 'Time (mm:ss)', key: 'timeString' },
+  { header: 'Age Grade', key: 'ageGrade' },
+];
 
-  state = {
-    page: null,
-    event: null,
-    loading: true,
-  };
+const Events = ({
+  match: {
+    params: { eventId },
+  },
+}) => {
+  const [page, setPage] = useState(null);
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [columns, setColumns] = useState({});
 
-  columns = [
-    { header: 'Position', key: 'pos' },
-    { header: 'Runner', key: 'runner' },
-    { header: 'Times run', key: 'noEvents' },
-    { header: 'Time (mm:ss)', key: 'timeString' },
-    { header: 'Age Grade', key: 'ageGrade' },
-  ];
+  useEffect(() => {
+    (async () => {
+      const [newEvent, newPage] = await Promise.all([getEvent(eventId), getPage(`run${eventId}`)]);
+      const newColumns = {
+        twok: baseColumns.map(item => ({
+          ...item,
+          header: item.header === 'Runner' ? `Runner (${newEvent.results2k.length})` : 'Runner',
+        })),
+        fivek: baseColumns.map(item => ({
+          ...item,
+          header: item.header === 'Runner' ? `Runner (${newEvent.results5k.length})` : 'Runner',
+        })),
+      };
 
-  columns2k = cloneDeep(this.columns);
+      setColumns(newColumns);
+      setEvent(newEvent);
+      setPage(newPage);
+      setLoading(false);
+    })();
+  }, [eventId]);
 
-  columns5k = cloneDeep(this.columns);
+  return (
+    <div>
+      <Spinner loading={loading} />
+      {event && (
+        <div className="Event">
+          <Breadcrumb noTrailingSlash className="Event-breadcrumb">
+            <BreadcrumbItem href="/events">Events</BreadcrumbItem>
+            <BreadcrumbItem href={`/events/${event.number}`}>{event.dateString}</BreadcrumbItem>
+          </Breadcrumb>
 
-  async componentDidMount() {
-    const { match: { params: { eventId } } } = this.props;
-    const [event, page] = await Promise.all([getEvent(eventId), getPage(`run${eventId}`)]);
-    this.columns2k[1].header = `Runner (${event.results2k.length})`;
-    this.columns5k[1].header = `Runner (${event.results5k.length})`;
-    this.setState({ event, page, loading: false });
-  }
+          {page && (
+            <React.Fragment>
+              <section className="Event-post wp-content" dangerouslySetInnerHTML={{ __html: page.content }} />
+              <HeaderImage imageUrl={page.pictureUrl} />
+            </React.Fragment>
+          )}
 
-  render() {
-    const { event, loading, page } = this.state;
+          <h2>2K Results</h2>
+          <Table rows={event.results2k} headers={columns.twok} />
 
-    return (
-      <div>
-        <Spinner loading={loading} />
-        {event && (
-          <div className="Event">
-            <Breadcrumb noTrailingSlash className="Event-breadcrumb">
-              <BreadcrumbItem href="/events">Events</BreadcrumbItem>
-              <BreadcrumbItem href={`/events/${event.number}`}>{event.dateString}</BreadcrumbItem>
-            </Breadcrumb>
+          <h2>5K Results</h2>
+          <Table rows={event.results5k} headers={columns.fivek} />
+        </div>
+      )}
+    </div>
+  );
+};
 
-            {page && (
-              <React.Fragment>
-                <section className="Event-post wp-content" dangerouslySetInnerHTML={{ __html: page.content }} />
-                <HeaderImage imageUrl={page.pictureUrl} />
-              </React.Fragment>
-            )}
+Events.propTypes = {
+  match: PropTypes.object.isRequired,
+};
 
-            <h2>2K Results</h2>
-            <Table
-              rows={event.results2k}
-              headers={this.columns2k}
-            />
-
-            <h2>5K Results</h2>
-            <Table
-              rows={event.results5k}
-              headers={this.columns5k}
-            />
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+export default Events;

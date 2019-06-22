@@ -9,7 +9,7 @@ export const getPosts = async () => {
   return body;
 };
 
-export const getPage = async (pageTitle) => {
+export const getPage = async pageTitle => {
   const response = await fetch(`/api/site/page/${pageTitle}`);
   let body = null;
   if (response.status !== 404) {
@@ -30,7 +30,7 @@ export const getEvents = async (limit = 50, offset = 0) => {
   return format.formatEvents(body.events);
 };
 
-export const getEvent = async (id) => {
+export const getEvent = async id => {
   if (!id) {
     throw Error('Please provide an ID');
   }
@@ -54,7 +54,7 @@ export const getRunners = async (limit = 30, offset = 0) => {
   };
 };
 
-export const getRunner = async (id) => {
+export const getRunner = async id => {
   if (!id) {
     throw Error('Please provide an ID');
   }

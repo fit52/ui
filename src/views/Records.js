@@ -1,71 +1,54 @@
-import React from 'react';
+import './Events.scss';
+
+import React, { useState, useEffect } from 'react';
 
 import Spinner from '../components/Spinner';
 import Table from '../components/Table';
 import { getRecords } from '../services/api';
 
-import './Events.scss';
+const COLUMNS = [
+  { header: 'Runner', key: 'runner' },
+  { header: 'Distance (K)', key: 'distance' },
+  { header: 'Event', key: 'eventName' },
+  { header: 'Time (mm:ss)', key: 'timeString' },
+  { header: 'Age Grade', key: 'ageGrade' },
+];
 
-export default class Records extends React.Component {
-  state = {
-    records: null,
-    loading: true,
-  };
+const Records = () => {
+  const [records, setRecords] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  columns = [
-    { header: 'Runner', key: 'runner' },
-    { header: 'Distance (K)', key: 'distance' },
-    { header: 'Event', key: 'eventName' },
-    { header: 'Time (mm:ss)', key: 'timeString' },
-    { header: 'Age Grade', key: 'ageGrade' },
-  ];
+  useEffect(() => {
+    getRecords().then(newRecords => {
+      setRecords(newRecords);
+      setLoading(false);
+    });
+  }, []);
 
-  componentDidMount() {
-    getRecords()
-      .then(records => this.setState({ records, loading: false }));
-  }
+  return (
+    <div>
+      <Spinner loading={loading} />
+      {records && (
+        <React.Fragment>
+          <h1>Records</h1>
+          <h2>Age Grade</h2>
+          <Table rows={records.ageGrade} headers={COLUMNS} />
 
-  render() {
-    const { records, loading } = this.state;
+          <h2>Fastest 2K (Female)</h2>
+          <Table rows={records.fastest2kfemale} headers={COLUMNS} />
 
-    return (
-      <div>
-        <Spinner loading={loading} />
-        {records && (
-          <React.Fragment>
-            <h1>Records</h1>
-            <h2>Age Grade</h2>
-            <Table
-              rows={records.ageGrade}
-              headers={this.columns}
-            />
+          <h2>Fastest 2K (Male)</h2>
+          <Table rows={records.fastest2kmale} headers={COLUMNS} />
 
-            <h2>Fastest 2K (Female)</h2>
-            <Table
-              rows={records.fastest2kfemale}
-              headers={this.columns}
-            />
+          <h2>Fastest 5K (Female)</h2>
+          <Table rows={records.fastest5kfemale} headers={COLUMNS} />
 
-            <h2>Fastest 2K (Male)</h2>
-            <Table
-              rows={records.fastest2kmale}
-              headers={this.columns}
-            />
+          <h2>Fastest 5K (Male)</h2>
+          <Table rows={records.fastest5kmale} headers={COLUMNS} />
+        </React.Fragment>
+      )}
+    </div>
+  );
+};
 
-            <h2>Fastest 5K (Female)</h2>
-            <Table
-              rows={records.fastest5kfemale}
-              headers={this.columns}
-            />
-
-            <h2>Fastest 5K (Male)</h2>
-            <Table
-              rows={records.fastest5kmale}
-              headers={this.columns}
-            />
-          </React.Fragment>
-        )}
-      </div>
-    );
-  }
-}
+export default Records;
