@@ -33,11 +33,11 @@ const Events = ({
       const newColumns = {
         twok: baseColumns.map(item => ({
           ...item,
-          header: item.header === 'Runner' ? `Runner (${newEvent.results2k.length})` : 'Runner',
+          header: item.header === 'Runner' ? `Runner (${newEvent.results2k.length})` : item.header,
         })),
         fivek: baseColumns.map(item => ({
           ...item,
-          header: item.header === 'Runner' ? `Runner (${newEvent.results5k.length})` : 'Runner',
+          header: item.header === 'Runner' ? `Runner (${newEvent.results5k.length})` : item.header,
         })),
       };
 
