@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router, Route, Switch, Link, NavLink,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import './App.scss';
 
 import Home from './views/Home';
@@ -24,11 +22,21 @@ const App = () => (
         <div className="App-inner-header">
           <Link to="/" className="App-image" title="Home" />
           <nav className="App-links">
-            <NavLink {...linkProps} exact to="/">Home</NavLink>
-            <NavLink {...linkProps} to="/page/about">About</NavLink>
-            <NavLink {...linkProps} to="/runners">Runners</NavLink>
-            <NavLink {...linkProps} to="/events">Events</NavLink>
-            <NavLink {...linkProps} to="/records">Records</NavLink>
+            <NavLink {...linkProps} exact to="/">
+              Home
+            </NavLink>
+            <NavLink {...linkProps} to="/page/about">
+              About
+            </NavLink>
+            <NavLink {...linkProps} to="/runners">
+              Runners
+            </NavLink>
+            <NavLink {...linkProps} to="/events">
+              Events
+            </NavLink>
+            <NavLink {...linkProps} to="/records">
+              Records
+            </NavLink>
           </nav>
         </div>
       </header>
@@ -57,7 +65,9 @@ const App = () => (
             <Route exact>
               <React.Fragment>
                 <h1>Page not found</h1>
-                <p><Link to="/">Return Home</Link></p>
+                <p>
+                  <Link to="/">Return Home</Link>
+                </p>
               </React.Fragment>
             </Route>
           </Switch>
@@ -66,8 +76,7 @@ const App = () => (
       <footer className="App-footer">
         <div className="App-inner-footer">
           <span>
-            Copyright Andrew Daniel 2019. Photo by Tomasz Woźniak on Unsplash. 
-            Cookies are used for analytics purposes.
+            Copyright Andrew Daniel 2020. Photo by Tomasz Woźniak on Unsplash. Cookies are used for analytics purposes.
           </span>
         </div>
       </footer>
