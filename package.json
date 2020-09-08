@@ -63,7 +63,7 @@
     "lodash.clonedeep": "^4.5.0",
     "lodash.has": "^4.5.2",
     "moment-duration-format": "^2.2.2",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.6.2",
     "react": "^16.8.0",
     "react-dom": "^16.4.0",
